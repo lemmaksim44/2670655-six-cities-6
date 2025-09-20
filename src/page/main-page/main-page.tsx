@@ -1,4 +1,4 @@
-import MainPageCard from "./main-page-card";
+import MainPageCard from './main-page-card';
 
 type MainPageProps = {
   cardQuantity: number;
@@ -95,7 +95,7 @@ function MainPage({cardQuantity}: MainPageProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {Array.from({length: cardQuantity}, () => <MainPageCard />)}
+                {Array.from({length: cardQuantity}, (_, index) => (<MainPageCard key={index}/>))}
               </div>
             </section>
             <div className="cities__right-section">

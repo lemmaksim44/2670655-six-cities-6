@@ -1,4 +1,4 @@
-import MainPage from "../../page/main-page/main-page";
+import MainPage from '../../page/main-page/main-page';
 
 type AppProps = {
   cardQuantity: number;
