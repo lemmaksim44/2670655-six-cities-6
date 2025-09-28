@@ -4,7 +4,7 @@ type AppProps = {
   cardQuantity: number;
 }
 
-function App({cardQuantity}: AppProps): JSX.Element {
+function App({cardQuantity}: AppProps) {
   return (
     <MainPage cardQuantity={cardQuantity}/>
   );

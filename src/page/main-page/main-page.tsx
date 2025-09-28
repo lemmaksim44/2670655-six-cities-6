@@ -4,7 +4,7 @@ type MainPageProps = {
   cardQuantity: number;
 }
 
-function MainPage({cardQuantity}: MainPageProps): JSX.Element {
+function MainPage({cardQuantity}: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
