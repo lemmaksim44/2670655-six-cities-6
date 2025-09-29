@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function Page404() {
   return (
     <div className="page page--favorites-empty">
@@ -32,9 +34,9 @@ function Page404() {
 
       <main className="page-404">
         <div className="page-404__block container">
-            <img src="img/404_2.gif" className="gif-404"/>
-            <p className="text-404">404 - Page not found</p>
-            <a className="button-404" href="/">Back to Main Screen</a>
+          <img src="img/404_2.gif" className="gif-404"/>
+          <p className="text-404">404 - Page not found</p>
+          <Link className="button-404" to="/">Back to Main Screen</Link>
         </div>
       </main>
 
@@ -47,4 +49,4 @@ function Page404() {
   );
 }
 
-export default Page404
+export default Page404;
