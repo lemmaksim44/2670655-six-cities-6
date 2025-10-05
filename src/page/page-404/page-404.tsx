@@ -1,4 +1,7 @@
-function FavoritesEmptyPage() {
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+
+function Page404() {
   return (
     <div className="page page--favorites-empty">
       <header className="header">
@@ -30,17 +33,14 @@ function FavoritesEmptyPage() {
         </div>
       </header>
 
-      <main className="page__main page__main--favorites page__main--favorites-empty">
-        <div className="page__favorites-container container">
-          <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Favorites (empty)</h1>
-            <div className="favorites__status-wrapper">
-              <b className="favorites__status">Nothing yet saved.</b>
-              <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
-            </div>
-          </section>
+      <main className="page-404">
+        <div className="page-404__block container">
+          <img src="img/404_2.gif" className="gif-404"/>
+          <p className="text-404">404 - Page not found</p>
+          <Link className="button-404" to={AppRoute.Main}>Back to Main Screen</Link>
         </div>
       </main>
+
       <footer className="footer">
         <a className="footer__logo-link" href="main.html">
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
@@ -50,4 +50,4 @@ function FavoritesEmptyPage() {
   );
 }
 
-export default FavoritesEmptyPage;
+export default Page404;
