@@ -38,7 +38,7 @@ function App({cardQuantity}: AppProps) {
           element={<OfferPage/>}
         />
         <Route
-          path='*'
+          path={AppRoute.Page404}
           element={<Page404/>}
         />
       </Routes>
