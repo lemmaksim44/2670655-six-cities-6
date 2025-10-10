@@ -4,8 +4,8 @@ import { HostType } from "./host";
 export type OfferType = OfferPreviewType & {
   description: string;
   bedrooms: number;
-  goods: [string];
+  goods: string[];
   host: HostType;
-  images: [string];
+  images: string[];
   maxAdults: number;
 };

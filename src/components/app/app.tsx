@@ -7,17 +7,19 @@ import FavoritesPage from '../../page/favorites-page/favorites-page';
 import OfferPage from '../../page/offer-page/offer-page';
 import Page404 from '../../page/page-404/page-404';
 
+import { OfferType } from '../../types/offer';
+
 type AppProps = {
-  cardQuantity: number;
+  offers: OfferType[];
 }
 
-function App({cardQuantity}: AppProps) {
+function App({offers}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage cardQuantity={cardQuantity}/>}
+          element={<MainPage offers={offers}/>}
         />
         <Route
           path={AppRoute.Login}
@@ -34,7 +36,7 @@ function App({cardQuantity}: AppProps) {
           }
         />
         <Route
-          path={AppRoute.Offer}
+          path={`${AppRoute.Offer}/:id`}
           element={<OfferPage/>}
         />
         <Route
