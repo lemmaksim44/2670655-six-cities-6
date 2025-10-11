@@ -17,7 +17,7 @@ export const offers: OfferType[] = [
       'https://14.design.htmlacademy.pro/static/hotel/13.jpg'
     ],
     city: {
-      name: 'Paris',
+      name: 'Amsterdam',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
@@ -124,7 +124,7 @@ export const offers: OfferType[] = [
       'https://14.design.htmlacademy.pro/static/hotel/16.jpg'
     ],
     city: {
-      name: 'Paris',
+      name: 'Cologne',
       location: {
         latitude: 48.85661,
         longitude: 2.351499,
