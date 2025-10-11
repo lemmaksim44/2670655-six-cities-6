@@ -1,6 +1,6 @@
-import { OfferPreviewType } from "../../types/offer-preview";
-import FavoritesPageEmpty from "./favorites-page-empty";
-import FavoritesPageList from "./favorites-page-list";
+import { OfferPreviewType } from '../../types/offer-preview';
+import FavoritesPageEmpty from './favorites-page-empty';
+import FavoritesPageList from './favorites-page-list';
 
 type FavoritesPageProps = {
   offers: OfferPreviewType[];
@@ -23,7 +23,7 @@ function getGroupCitiesOffer(offers: OfferPreviewType[]) {
 }
 
 function FavoritesPage({offers}: FavoritesPageProps) {
-  const isOffer = offers.length != 0;
+  const isOffer = offers.length !== 0;
   const groupCitiesOffer = getGroupCitiesOffer(offers);
 
   return (

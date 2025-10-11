@@ -1,5 +1,5 @@
-import MainPageCities from "./main-page-cities";
-import { OfferPreviewType } from "../../types/offer-preview";
+import MainPageCities from './main-page-cities';
+import { OfferPreviewType } from '../../types/offer-preview';
 
 type MainPageProps = {
   offers: OfferPreviewType[];

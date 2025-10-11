@@ -1,7 +1,7 @@
-import { OfferPreviewType } from "../../types/offer-preview";
-import { Link } from "react-router-dom";
-import { AppRoute } from "../../const";
-import { capitalize } from "../../utils/scripts";
+import { OfferPreviewType } from '../../types/offer-preview';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { capitalize } from '../../utils/scripts';
 
 type FavoritesPageCardProps = {
   offer: OfferPreviewType;

@@ -1,5 +1,5 @@
-import { OfferPreviewType } from "../../types/offer-preview";
-import FavoritesPageCities from "./favorites-page-cities";
+import { OfferPreviewType } from '../../types/offer-preview';
+import FavoritesPageCities from './favorites-page-cities';
 
 type FavoritesPageListProps = {
   offers: Record<string, OfferPreviewType[]>;
@@ -23,4 +23,4 @@ function FavoritesPageList({offers}: FavoritesPageListProps) {
   );
 }
 
-export default FavoritesPageList
+export default FavoritesPageList;

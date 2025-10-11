@@ -1,5 +1,5 @@
-import { CityType } from "./city";
-import { LocationType } from "./location";
+import { CityType } from './city';
+import { LocationType } from './location';
 
 export type OfferPreviewType = {
   id: string;

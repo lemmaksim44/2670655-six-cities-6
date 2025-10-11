@@ -1,5 +1,5 @@
-import { OfferPreviewType } from "../../types/offer-preview";
-import FavoritesPageCard from "./favorites-page-card";
+import { OfferPreviewType } from '../../types/offer-preview';
+import FavoritesPageCard from './favorites-page-card';
 
 type FavoritesPageCities = {
   city: string;

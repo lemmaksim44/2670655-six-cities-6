@@ -1,13 +1,13 @@
-import MainPageCard from "./main-page-card";
-import { OfferPreviewType } from "../../types/offer-preview";
-import { useState } from "react";
+import MainPageCard from './main-page-card';
+import { OfferPreviewType } from '../../types/offer-preview';
+import { useState } from 'react';
 
 type MainPageCitiesProps = {
   offers: OfferPreviewType[];
 }
 
 function MainPageCities({offers}: MainPageCitiesProps) {
-  const [_hoveredCardId, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
+  const [, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
 
   function hoverCard(id: OfferPreviewType['id'] | null) {
     setHoveredCardId(id);

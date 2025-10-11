@@ -1,4 +1,4 @@
-import { useState, Fragment, ChangeEvent } from "react";
+import { useState, Fragment, ChangeEvent } from 'react';
 
 function OfferPageForm() {
   const [formData, setFormData] = useState({
@@ -7,12 +7,12 @@ function OfferPageForm() {
   });
 
   const ratings = [
-  { value: 5, title: "perfect" },
-  { value: 4, title: "good" },
-  { value: 3, title: "not bad" },
-  { value: 2, title: "badly" },
-  { value: 1, title: "terribly" },
-];
+    { value: 5, title: 'perfect' },
+    { value: 4, title: 'good' },
+    { value: 3, title: 'not bad' },
+    { value: 2, title: 'badly' },
+    { value: 1, title: 'terribly' },
+  ];
 
   const handleFieldChange = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = evt.target;

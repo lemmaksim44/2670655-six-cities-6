@@ -1,8 +1,8 @@
-import { OfferType } from "../../types/offer";
-import { ReviewType } from "../../types/review";
-import { capitalize } from "../../utils/scripts";
-import OfferPageReviews from "./offer-page-reviews";
-import OfferPageForm from "./offer-page-form";
+import { OfferType } from '../../types/offer';
+import { ReviewType } from '../../types/review';
+import { capitalize } from '../../utils/scripts';
+import OfferPageReviews from './offer-page-reviews';
+import OfferPageForm from './offer-page-form';
 
 type OfferPageDetailsProps = {
   offer: OfferType;
@@ -14,8 +14,8 @@ function OfferPageDetails({offer, reviews}: OfferPageDetailsProps) {
     <section className="offer">
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((image, index) => (
-            <div className="offer__image-wrapper" key={index}>
+          {offer.images.map((image) => (
+            <div className="offer__image-wrapper" key={image}>
               <img className="offer__image" src={image} alt="Photo studio" />
             </div>
           ))}
@@ -64,8 +64,8 @@ function OfferPageDetails({offer, reviews}: OfferPageDetailsProps) {
           <div className="offer__inside">
             <h2 className="offer__inside-title">What&apos;s inside</h2>
             <ul className="offer__inside-list">
-              {offer.goods.map((good, index) => (
-                <li className="offer__inside-item" key={index}>
+              {offer.goods.map((good) => (
+                <li className="offer__inside-item" key={`${good}`}>
                   {good}
                 </li>
               ))}

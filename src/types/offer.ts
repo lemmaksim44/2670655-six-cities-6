@@ -1,5 +1,5 @@
-import { OfferPreviewType } from "./offer-preview";
-import { UserType } from "./user";
+import { OfferPreviewType } from './offer-preview';
+import { UserType } from './user';
 
 export type OfferType = OfferPreviewType & {
   description: string;

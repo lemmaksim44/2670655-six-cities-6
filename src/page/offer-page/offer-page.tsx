@@ -1,8 +1,8 @@
-import { OfferType } from "../../types/offer";
-import { useParams, Navigate } from "react-router-dom";
-import { AppRoute } from "../../const";
-import OfferPageDetails from "./offer-page-details";
-import { ReviewType } from "../../types/review";
+import { OfferType } from '../../types/offer';
+import { useParams, Navigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import OfferPageDetails from './offer-page-details';
+import { ReviewType } from '../../types/review';
 
 type OfferPageProps = {
   offers: OfferType[];
@@ -14,7 +14,7 @@ function OfferPage({offers, reviews}: OfferPageProps) {
   const offer = offers.find((item) => item.id === id);
 
   if (!offer) {
-    return <Navigate to={AppRoute.Page404} />
+    return <Navigate to={AppRoute.Page404} />;
   }
 
   return (
