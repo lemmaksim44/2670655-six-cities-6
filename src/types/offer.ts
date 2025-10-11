@@ -1,11 +1,11 @@
 import { OfferPreviewType } from "./offer-preview";
-import { HostType } from "./host";
+import { UserType } from "./user";
 
 export type OfferType = OfferPreviewType & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: HostType;
+  user: UserType;
   images: string[];
   maxAdults: number;
 };

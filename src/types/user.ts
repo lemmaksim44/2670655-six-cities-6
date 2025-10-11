@@ -1,4 +1,4 @@
-export type HostType = {
+export type UserType = {
   name: string;
   avatarUrl: string;
   isPro: boolean;

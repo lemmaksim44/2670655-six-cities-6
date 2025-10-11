@@ -43,8 +43,8 @@ export const offers: OfferType[] = [
       'Laptop friendly workspace',
       'Heating'
     ],
-    host: {
-      isPro: true,
+    user: {
+      isPro: false,
       name: 'Angelina',
       avatarUrl: 'https://14.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
@@ -97,7 +97,7 @@ export const offers: OfferType[] = [
       'Fridge',
       'Dishwasher'
     ],
-    host: {
+    user: {
       isPro: true,
       name: 'Angelina',
       avatarUrl: 'https://14.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
@@ -148,7 +148,7 @@ export const offers: OfferType[] = [
       'Towels',
       'Fridge'
     ],
-    host: {
+    user: {
       isPro: true,
       name: 'Angelina',
       avatarUrl: 'https://14.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
@@ -192,8 +192,8 @@ export const offers: OfferType[] = [
       'Fridge',
       'Washer'
     ],
-    host: {
-      isPro: true,
+    user: {
+      isPro: false,
       name: 'Angelina',
       avatarUrl: 'https://14.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },

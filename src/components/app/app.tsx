@@ -8,12 +8,14 @@ import OfferPage from '../../page/offer-page/offer-page';
 import Page404 from '../../page/page-404/page-404';
 
 import { OfferType } from '../../types/offer';
+import { ReviewType } from '../../types/review';
 
 type AppProps = {
   offers: OfferType[];
+  reviews: ReviewType[];
 }
 
-function App({offers}: AppProps) {
+function App({offers, reviews}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -37,7 +39,7 @@ function App({offers}: AppProps) {
         />
         <Route
           path={`${AppRoute.Offer}/:id`}
-          element={<OfferPage/>}
+          element={<OfferPage offers={offers} reviews={reviews}/>}
         />
         <Route
           path={AppRoute.Page404}
