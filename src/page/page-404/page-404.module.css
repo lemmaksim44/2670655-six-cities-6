@@ -1,31 +1,31 @@
-.page-404 {
+.page404 {
   width: 100%;
   height: auto;
 }
 
-.page-404__block {
+.page404Block {
   display: flex;
   flex-direction: column;
 }
 
-.text-404 {
+.text404 {
   margin: 0 auto 3vw;
   user-select: none;
 }
 
-.gif-404 {
+.gif404 {
   margin: 0 auto 1vw;
   width: 70vw;
   height: auto;
 }
 
-.button-404 {
+.button404 {
   margin: 0 auto;
   -webkit-transition: text-shadow .3s;
   transition: text-shadow .3s;
 }
 
-.button-404:focus,
-.button-404:hover {
+.button404:focus,
+.button404:hover {
   text-shadow: .5px 0 0, -.5px 0 0;
 }

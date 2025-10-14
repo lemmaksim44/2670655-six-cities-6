@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import styles from './page-404.module.css';
+import gif404 from './404_2.gif';
 
 function Page404() {
   return (
@@ -33,11 +35,11 @@ function Page404() {
         </div>
       </header>
 
-      <main className="page-404">
-        <div className="page-404__block container">
-          <img src="img/404_2.gif" className="gif-404"/>
-          <p className="text-404">404 - Page not found</p>
-          <Link className="button-404" to={AppRoute.Main}>Back to Main Screen</Link>
+      <main className={styles.page404}>
+        <div className={`${styles.page404Block} container`}>
+          <img src={gif404} className={styles.gif404}/>
+          <p className={styles.text404}>404 - Page not found</p>
+          <Link className={styles.button404} to={AppRoute.Main}>Back to Main Screen</Link>
         </div>
       </main>
 

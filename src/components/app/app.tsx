@@ -7,17 +7,21 @@ import FavoritesPage from '../../page/favorites-page/favorites-page';
 import OfferPage from '../../page/offer-page/offer-page';
 import Page404 from '../../page/page-404/page-404';
 
+import { OfferType } from '../../types/offer';
+import { ReviewType } from '../../types/review';
+
 type AppProps = {
-  cardQuantity: number;
+  offers: OfferType[];
+  reviews: ReviewType[];
 }
 
-function App({cardQuantity}: AppProps) {
+function App({offers, reviews}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage cardQuantity={cardQuantity}/>}
+          element={<MainPage offers={offers}/>}
         />
         <Route
           path={AppRoute.Login}
@@ -27,18 +31,18 @@ function App({cardQuantity}: AppProps) {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AuthorizationStatus.NoAuth}
+              authorizationStatus={AuthorizationStatus.Auth}
             >
-              <FavoritesPage/>
+              <FavoritesPage offers={offers}/>
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.Offer}
-          element={<OfferPage/>}
+          path={`${AppRoute.Offer}/:id`}
+          element={<OfferPage offers={offers} reviews={reviews}/>}
         />
         <Route
-          path='*'
+          path={AppRoute.Page404}
           element={<Page404/>}
         />
       </Routes>
