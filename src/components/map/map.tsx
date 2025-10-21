@@ -8,9 +8,10 @@ import pinActive from '/img/pin-active.svg';
 
 type MapProps = {
   offers: OfferPreviewType[],
+  selectedOfferId?: OfferPreviewType['id'] | null,
 };
 
-function Map({offers}: MapProps) {
+function Map({offers, selectedOfferId}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, offers);
 
@@ -26,20 +27,28 @@ function Map({offers}: MapProps) {
     iconAnchor: [20, 40],
   });
 
-  useEffect(() => {
+   useEffect(() => {
     if (map) {
+      const markerGroup = leaflet.layerGroup().addTo(map);
+
       offers.forEach((offer) => {
-        leaflet
-          .marker({
+        const marker = leaflet.marker(
+          {
             lat: offer.location.latitude,
             lng: offer.location.longitude,
-          }, {
-            icon: defaultCustomIcon,
-          })
-          .addTo(map);
+          },
+          {
+            icon: offer.id === selectedOfferId ? currentCustomIcon : defaultCustomIcon,
+          }
+        );
+        marker.addTo(markerGroup);
       });
+
+      return () => {
+        map.removeLayer(markerGroup);
+      };
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOfferId]);
 
   return (
     <section className='cities__map map' ref={mapRef}></section>

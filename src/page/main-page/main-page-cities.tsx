@@ -8,9 +8,9 @@ type MainPageCitiesProps = {
 }
 
 function MainPageCities({offers}: MainPageCitiesProps) {
-  const [, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
+  const [hoveredCardId, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
 
-  function hoverCard(id: OfferPreviewType['id'] | null) {
+  function handleCardHover(id: OfferPreviewType['id'] | null) {
     setHoveredCardId(id);
   }
 
@@ -37,12 +37,12 @@ function MainPageCities({offers}: MainPageCitiesProps) {
           </form>
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (
-              <MainPageCard key={offer.id} offer={offer} onMouseHover={hoverCard} />
+              <MainPageCard key={offer.id} offer={offer} onMouseHover={handleCardHover} />
             ))}
           </div>
         </section>
         <div className="cities__right-section">
-          <Map offers={offers}/>
+          <Map offers={offers} selectedOfferId={hoveredCardId}/>
         </div>
       </div>
     </div>
