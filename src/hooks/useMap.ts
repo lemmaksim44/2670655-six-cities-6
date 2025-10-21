@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect } from "react";
-import leaflet from "leaflet";
-import { OfferPreviewType } from "../types/offer-preview";
+import { useState, useRef, useEffect } from 'react';
+import leaflet from 'leaflet';
+import { OfferPreviewType } from '../types/offer-preview';
 
 function useMap(mapRef: React.RefObject<HTMLDivElement>, offers: OfferPreviewType[],) {
   const [map, setMap] = useState<L.Map | null>(null);
