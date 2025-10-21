@@ -1,5 +1,6 @@
 import { ReviewType } from '../../types/review';
 import { Fragment } from 'react';
+import { formatDate } from '../../utils/scripts';
 
 type OfferPageReviewsProps = {
   reviews: ReviewType[];
@@ -10,13 +11,13 @@ function OfferPageReviews({reviews}: OfferPageReviewsProps) {
     return;
   }
 
-  const sortedReviews = reviews.toSorted(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const sortedReviews = reviews
+    .toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 10);
 
   return(
     <Fragment>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{sortedReviews.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {sortedReviews.map((review) => (
           <li className="reviews__item" key={review.id}>
@@ -39,9 +40,7 @@ function OfferPageReviews({reviews}: OfferPageReviewsProps) {
                 {review.comment}
               </p>
               <time className="reviews__time" dateTime={review.date.slice(0, 10)}>
-                {new Date(review.date).getUTCDate()}{' '}
-                {new Date(review.date).toLocaleString('en-US', { month: 'long' })}{' '}
-                {new Date(review.date).getUTCFullYear()}
+                {formatDate(review.date)}
               </time>
             </div>
           </li>

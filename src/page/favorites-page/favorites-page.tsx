@@ -23,7 +23,7 @@ function getGroupCitiesOffer(offers: OfferPreviewType[]) {
 }
 
 function FavoritesPage({offers}: FavoritesPageProps) {
-  const isOffer = offers.length !== 0;
+  const hasOffers = offers.length !== 0;
   const groupCitiesOffer = getGroupCitiesOffer(offers);
 
   return (
@@ -57,9 +57,9 @@ function FavoritesPage({offers}: FavoritesPageProps) {
         </div>
       </header>
 
-      <main className={`page__main page__main--favorites ${isOffer ? 'page__main--favorites-empty' : ''}`}>
+      <main className={`page__main page__main--favorites ${hasOffers ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
-          {isOffer ? <FavoritesPageList offers={groupCitiesOffer}/> : <FavoritesPageEmpty/>}
+          {hasOffers ? <FavoritesPageList offers={groupCitiesOffer}/> : <FavoritesPageEmpty/>}
         </div>
       </main>
 
