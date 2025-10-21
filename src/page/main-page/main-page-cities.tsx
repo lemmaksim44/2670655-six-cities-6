@@ -1,6 +1,7 @@
 import MainPageCard from './main-page-card';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { useState } from 'react';
+import Map from '../../components/map/map';
 
 type MainPageCitiesProps = {
   offers: OfferPreviewType[];
@@ -41,7 +42,7 @@ function MainPageCities({offers}: MainPageCitiesProps) {
           </div>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"></section>
+          <Map offers={offers}/>
         </div>
       </div>
     </div>
