@@ -1,7 +1,7 @@
 import { OfferType } from '../../types/offer';
 import { ReviewType } from '../../types/review';
 import { capitalize } from '../../utils/scripts';
-import OfferPageReviews from './offer-page-reviews';
+import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
 
 type OfferPageDetailsProps = {
@@ -93,7 +93,7 @@ function OfferPageDetails({offer, reviews}: OfferPageDetailsProps) {
             </div>
           </div>
           <section className="offer__reviews reviews">
-            <OfferPageReviews reviews={reviews} />
+            <OfferPageReviewsList reviews={reviews} />
             <OfferPageForm/>
           </section>
         </div>
