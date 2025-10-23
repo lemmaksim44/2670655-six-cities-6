@@ -1,0 +1,7 @@
+.map--offer {
+  width: 1144px !important;
+  height: 579px !important;
+  margin: 0 auto 50px !important;
+  background: none !important; /* убираем старую картинку, если осталась */
+  background-color: transparent; /* на всякий случай */
+}

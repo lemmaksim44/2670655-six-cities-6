@@ -20,7 +20,7 @@ function OfferPageReviewsList({reviews}: OfferPageReviewsProps) {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {sortedReviews.map((review) => (
-          <OfferPageReview review={review} />
+          <OfferPageReview key={review.id} review={review} />
         ))}
       </ul>
     </Fragment>

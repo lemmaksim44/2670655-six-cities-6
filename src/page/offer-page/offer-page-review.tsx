@@ -1,5 +1,5 @@
-import { ReviewType } from "../../types/review";
-import { formatDate } from "../../utils/scripts";
+import { ReviewType } from '../../types/review';
+import { formatDate } from '../../utils/scripts';
 
 type OfferPageReviewProps = {
   review: ReviewType;
