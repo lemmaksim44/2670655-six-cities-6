@@ -10,4 +10,9 @@ function formatDate(dateString: string): string {
   return `${month} ${year}`;
 }
 
-export {capitalize, formatDate};
+function plural(count: number, word: string): string {
+  const value = count === 1 ? word : `${word}s`;
+  return value;
+}
+
+export {capitalize, formatDate, plural};

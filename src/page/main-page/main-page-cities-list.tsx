@@ -1,10 +1,10 @@
-import { FC, Fragment } from "react";
-import { Link } from "react-router-dom";
-import { AppRoute } from "../../const";
-import { useSelector, useDispatch } from "react-redux";
-import { StateType } from "../../store";
-import { setCity } from "../../store/action";
-import { City } from "../../const";
+import { FC, Fragment } from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { useSelector, useDispatch } from 'react-redux';
+import { StateType } from '../../store';
+import { setCity } from '../../store/action';
+import { City } from '../../const';
 
 const cities = Object.values(City);
 
@@ -22,21 +22,21 @@ const MainPageCitiesList: FC = () => {
               <li className="locations__item" key={c}>
                 <Link
                   className={`locations__item-link tabs__item ${city === c ? 'tabs__item--active' : ''}`}
-                to={AppRoute.Main}
-                onClick={(event) => {
-                  event.preventDefault();
-                  dispatch(setCity(c as City))
-                }}
-              >
-                <span>{c}</span>
-              </Link>
-            </li>
+                  to={AppRoute.Main}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    dispatch(setCity(c as City));
+                  }}
+                >
+                  <span>{c}</span>
+                </Link>
+              </li>
             ))}
           </ul>
         </section>
       </div>
     </Fragment>
-  )
-}
+  );
+};
 
 export default MainPageCitiesList;

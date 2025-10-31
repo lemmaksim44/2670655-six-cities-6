@@ -1,14 +1,28 @@
 import MainPageCitiesList from './main-page-cities-list';
 import MainPageCities from './main-page-cities';
 import { OfferPreviewType } from '../../types/offer-preview';
+import { useSelector, useDispatch } from 'react-redux';
+import { StateType } from '../../store';
+import { fetchOffers } from '../../store/action';
+import { useEffect } from 'react';
+import MainPageEmpty from './main-page-empty';
 
 type MainPageProps = {
   offers: OfferPreviewType[];
 }
 
 function MainPage({offers}: MainPageProps) {
+  const dispatch = useDispatch();
+  const city = useSelector((state: StateType) => state.city);
+  const filteredOffers = offers.filter((offer) => offer.city.name === city.toString());
+  const hasOffers = filteredOffers.length > 0;
+
+  useEffect(() => {
+    dispatch(fetchOffers(offers));
+  }, [dispatch, offers]);
+
   return (
-    <div className="page page--gray page--main">
+    <div className="page page--gray page--main ">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -38,9 +52,13 @@ function MainPage({offers}: MainPageProps) {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
-        <MainPageCitiesList />
-        <MainPageCities offers={offers}/>
+      <main className={`page__main page__main--index ${hasOffers ? '' : 'page__main--index-empty'}`}>
+        <MainPageCitiesList/>
+        {hasOffers ? (
+          <MainPageCities offers={filteredOffers} />
+        ) : (
+          <MainPageEmpty/>
+        )}
       </main>
     </div>
   );
