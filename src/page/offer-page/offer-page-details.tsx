@@ -101,7 +101,7 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
           </section>
         </div>
       </div>
-      <Map offers={offersNearby} block='offer__map' />
+      <Map currentOffer={offer} offers={offersNearby} block='offer__map' />
     </section>
   );
 }
