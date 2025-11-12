@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Map from '../../components/map/map';
 import { plural } from '../../utils/scripts';
 import { useSelector } from 'react-redux';
-import { StateType } from '../../store';
+import { RootState } from '../../store';
 
 type MainPageCitiesProps = {
   offers: OfferPreviewType[];
@@ -12,7 +12,7 @@ type MainPageCitiesProps = {
 
 function MainPageCities({offers}: MainPageCitiesProps) {
   const [hoveredCardId, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
-  const city = useSelector((state: StateType) => state.city);
+  const city = useSelector((state: RootState) => state.city);
 
   function handleCardHover(id: OfferPreviewType['id'] | null) {
     setHoveredCardId(id);

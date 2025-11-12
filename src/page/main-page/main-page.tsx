@@ -2,7 +2,7 @@ import MainPageCitiesList from './main-page-cities-list';
 import MainPageCities from './main-page-cities';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { useSelector, useDispatch } from 'react-redux';
-import { StateType } from '../../store';
+import { RootState } from '../../store';
 import { fetchOffers } from '../../store/action';
 import { useEffect } from 'react';
 import MainPageEmpty from './main-page-empty';
@@ -13,7 +13,7 @@ type MainPageProps = {
 
 function MainPage({offers}: MainPageProps) {
   const dispatch = useDispatch();
-  const city = useSelector((state: StateType) => state.city);
+  const city = useSelector((state: RootState) => state.city);
   const filteredOffers = offers.filter((offer) => offer.city.name === city.toString());
   const hasOffers = filteredOffers.length > 0;
 

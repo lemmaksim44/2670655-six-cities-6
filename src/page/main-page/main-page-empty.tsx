@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import { StateType } from '../../store';
+import { RootState } from '../../store';
 
 function MainPageEmpty() {
-  const city = useSelector((state: StateType) => state.city);
+  const city = useSelector((state: RootState) => state.city);
 
   return (
     <div className="cities">

@@ -2,7 +2,7 @@ import { FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useSelector, useDispatch } from 'react-redux';
-import { StateType } from '../../store';
+import { RootState } from '../../store';
 import { setCity } from '../../store/action';
 import { City } from '../../const';
 
@@ -10,7 +10,7 @@ const cities = Object.values(City);
 
 const MainPageCitiesList: FC = () => {
   const dispatch = useDispatch();
-  const city = useSelector((state: StateType) => state.city);
+  const city = useSelector((state: RootState) => state.city);
 
   return (
     <Fragment>
