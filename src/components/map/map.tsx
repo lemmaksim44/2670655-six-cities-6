@@ -23,15 +23,14 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
 
   const map = useMap(mapRef, centerPoint);
 
-  const nearOffersNumber = 3;
-  const offersToRender = isOfferMap && currentOffer
-      ? [currentOffer, ...offers.slice(0,nearOffersNumber)]
-      : offers;
-
-
   useEffect(() => {
     if (map) {
       const markerGroup = leaflet.layerGroup().addTo(map);
+
+      const nearOffersNumber = 3;
+      const offersToRender = isOfferMap && currentOffer
+        ? [currentOffer, ...offers.slice(0,nearOffersNumber)]
+        : offers;
 
       offersToRender.forEach((offer) => {
         const marker = leaflet.marker(
@@ -50,7 +49,7 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
         map.removeLayer(markerGroup);
       };
     }
-  }, [map, offers, selectedOfferId, currentOffer]);
+  }, [map, isOfferMap, offers, selectedOfferId, currentOffer]);
 
   return (
     <section className={`${block} map ${isOfferMap ? 'map--offer' : ''}`} ref={mapRef}></section>
