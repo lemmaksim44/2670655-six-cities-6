@@ -27,9 +27,8 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
     if (map) {
       const markerGroup = leaflet.layerGroup().addTo(map);
 
-      const nearOffersNumber = 3;
       const offersToRender = isOfferMap && currentOffer
-        ? [currentOffer, ...offers.slice(0,nearOffersNumber)]
+        ? [currentOffer, ...offers]
         : offers;
 
       offersToRender.forEach((offer) => {
