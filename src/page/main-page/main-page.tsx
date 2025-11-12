@@ -1,13 +1,28 @@
+import MainPageCitiesList from './main-page-cities-list';
 import MainPageCities from './main-page-cities';
 import { OfferPreviewType } from '../../types/offer-preview';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { fetchOffers } from '../../store/action';
+import { useEffect } from 'react';
+import MainPageEmpty from './main-page-empty';
 
 type MainPageProps = {
   offers: OfferPreviewType[];
 }
 
 function MainPage({offers}: MainPageProps) {
+  const dispatch = useDispatch();
+  const city = useSelector((state: RootState) => state.city);
+  const filteredOffers = offers.filter((offer) => offer.city.name === city.toString());
+  const hasOffers = filteredOffers.length > 0;
+
+  useEffect(() => {
+    dispatch(fetchOffers(offers));
+  }, [dispatch, offers]);
+
   return (
-    <div className="page page--gray page--main">
+    <div className="page page--gray page--main ">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -37,46 +52,13 @@ function MainPage({offers}: MainPageProps) {
         </div>
       </header>
 
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-        </div>
-
-        <MainPageCities offers={offers}/>
+      <main className={`page__main page__main--index ${hasOffers ? '' : 'page__main--index-empty'}`}>
+        <MainPageCitiesList/>
+        {hasOffers ? (
+          <MainPageCities offers={filteredOffers} />
+        ) : (
+          <MainPageEmpty/>
+        )}
       </main>
     </div>
   );
