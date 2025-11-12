@@ -37,7 +37,7 @@ function FavoritesPageCard({offer}: FavoritesPageCardProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: getRating(offer.rating) }}></span>
+            <span style={{ width: getRating(rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
