@@ -1,7 +1,7 @@
 import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { ReviewType } from '../../types/review';
-import { capitalize } from '../../utils/scripts';
+import { capitalize, getRating } from '../../utils/scripts';
 import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
 import Map from '../../components/map/map';
@@ -44,7 +44,7 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              <span style={{width: `${offer.rating * 20}%`}}></span>
+              <span style={{ width: getRating(offer.rating) }}></span>
               <span className="visually-hidden">Rating</span>
             </div>
             <span className="offer__rating-value rating__value">{offer.rating}</span>

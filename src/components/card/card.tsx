@@ -1,7 +1,7 @@
 import { OfferPreviewType } from '../../types/offer-preview';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { capitalize } from '../../utils/scripts';
+import { capitalize, getRating } from '../../utils/scripts';
 
 type CardProps = {
   offer: OfferPreviewType;
@@ -56,7 +56,7 @@ function Card({offer, block, onMouseHover}: CardProps) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating * 20}%`}}></span>
+            <span style={{ width: getRating(offer.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
