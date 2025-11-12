@@ -20,9 +20,10 @@ function OfferPage({offers, offersNearby, reviews}: OfferPageProps) {
     return <Navigate to={AppRoute.Page404} />;
   }
 
+  const nearOffersNumber = 3;
   const offersStub = offersNearby
     .filter((item) => item.id !== offer.id)
-    .slice(0, 3);
+    .slice(0, nearOffersNumber);
 
   return (
     <div className="page">

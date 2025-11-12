@@ -10,25 +10,35 @@ type MapProps = {
   offers: OfferPreviewType[];
   block: string;
   selectedOfferId?: OfferPreviewType['id'] | null;
+  currentOffer?: OfferPreviewType | null;
 };
 
-function Map({offers, block, selectedOfferId}: MapProps) {
+function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, offers);
   const isOfferMap = block === 'offer__map';
+
+  const centerPoint = isOfferMap && currentOffer
+    ? currentOffer.location
+    : offers[0].city.location;
+
+  const map = useMap(mapRef, centerPoint);
 
   useEffect(() => {
     if (map) {
       const markerGroup = leaflet.layerGroup().addTo(map);
 
-      offers.forEach((offer) => {
+      const offersToRender = isOfferMap && currentOffer
+        ? [currentOffer, ...offers]
+        : offers;
+
+      offersToRender.forEach((offer) => {
         const marker = leaflet.marker(
           {
             lat: offer.location.latitude,
             lng: offer.location.longitude,
           },
           {
-            icon: offer.id === selectedOfferId ? currentCustomIcon : defaultCustomIcon,
+            icon: offer.id === selectedOfferId || offer.id === currentOffer?.id ? currentCustomIcon : defaultCustomIcon,
           }
         );
         marker.addTo(markerGroup);
@@ -38,7 +48,7 @@ function Map({offers, block, selectedOfferId}: MapProps) {
         map.removeLayer(markerGroup);
       };
     }
-  }, [map, offers, selectedOfferId]);
+  }, [map, isOfferMap, offers, selectedOfferId, currentOffer]);
 
   return (
     <section className={`${block} map ${isOfferMap ? 'map--offer' : ''}`} ref={mapRef}></section>
