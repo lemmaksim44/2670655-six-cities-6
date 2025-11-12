@@ -1,4 +1,4 @@
-import MainPageCard from './main-page-card';
+import Card from '../../components/card/card';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { useState } from 'react';
 import Map from '../../components/map/map';
@@ -37,12 +37,12 @@ function MainPageCities({offers}: MainPageCitiesProps) {
           </form>
           <div className="cities__places-list places__list tabs__content">
             {offers.map((offer) => (
-              <MainPageCard key={offer.id} offer={offer} onMouseHover={handleCardHover} />
+              <Card key={offer.id} offer={offer} block='cities' onMouseHover={handleCardHover} />
             ))}
           </div>
         </section>
         <div className="cities__right-section">
-          <Map offers={offers} selectedOfferId={hoveredCardId}/>
+          <Map offers={offers} block='cities__map' selectedOfferId={hoveredCardId}/>
         </div>
       </div>
     </div>

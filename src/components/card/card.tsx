@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { capitalize } from '../../utils/scripts';
 
-type MainPageCardProps = {
+type CardProps = {
   offer: OfferPreviewType;
-  onMouseHover: (id: OfferPreviewType['id'] | null) => void;
+  block: string;
+  onMouseHover?: (id: OfferPreviewType['id'] | null) => void;
 }
 
-function MainPageCard({offer, onMouseHover}: MainPageCardProps) {
+function Card({offer, block, onMouseHover}: CardProps) {
   const {isPremium, id, previewImage, title, price, rating, type} = offer;
 
   function mouseEnter() {
@@ -20,17 +21,22 @@ function MainPageCard({offer, onMouseHover}: MainPageCardProps) {
   }
 
   return (
+
     <article
-      className="cities__card place-card"
-      onMouseEnter={mouseEnter}
-      onMouseLeave={mouseLeave}
+      className={`${block}__card place-card`}
+      {...(onMouseHover
+        ? {
+          onMouseEnter: mouseEnter,
+          onMouseLeave: mouseLeave,
+        }
+        : {})}
     >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${block}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title}/>
         </Link>
@@ -63,4 +69,4 @@ function MainPageCard({offer, onMouseHover}: MainPageCardProps) {
   );
 }
 
-export default MainPageCard;
+export default Card;
