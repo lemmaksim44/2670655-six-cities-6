@@ -1,5 +1,6 @@
 import { ReviewType } from '../../types/review';
 import { formatDate } from '../../utils/scripts';
+import { getRating } from '../../utils/scripts';
 
 type OfferPageReviewProps = {
   review: ReviewType;
@@ -19,7 +20,7 @@ function OfferPageReview({review}: OfferPageReviewProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${review.rating * 20}%`}}></span>
+            <span style={{ width: getRating(review.rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

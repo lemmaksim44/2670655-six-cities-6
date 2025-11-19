@@ -1,8 +1,8 @@
-function capitalize(str: string) {
+export function capitalize(str: string) {
   return str[0].toUpperCase() + str.slice(1);
 }
 
-function formatDate(dateString: string): string {
+export function formatDate(dateString: string): string {
   const date = new Date(dateString);
   const month = date.toLocaleString('en-US', { month: 'long', timeZone: 'UTC' });
   const year = date.getUTCFullYear();
@@ -10,9 +10,13 @@ function formatDate(dateString: string): string {
   return `${month} ${year}`;
 }
 
-function plural(count: number, word: string): string {
+export function plural(count: number, word: string): string {
   const value = count === 1 ? word : `${word}s`;
   return value;
 }
 
-export {capitalize, formatDate, plural};
+export function getRating(rating: number): string {
+  const rounded = Math.round(rating);
+  const clamped = Math.min(Math.max(rounded, 0), 5);
+  return `${(clamped / 5) * 100}%`;
+}
