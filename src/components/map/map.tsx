@@ -25,6 +25,8 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
 
   useEffect(() => {
     if (map) {
+      map.setView([centerPoint.latitude, centerPoint.longitude], centerPoint.zoom);
+
       const markerGroup = leaflet.layerGroup().addTo(map);
 
       const offersToRender = isOfferMap && currentOffer
@@ -48,7 +50,7 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
         map.removeLayer(markerGroup);
       };
     }
-  }, [map, isOfferMap, offers, selectedOfferId, currentOffer]);
+  }, [map, isOfferMap, offers, selectedOfferId, currentOffer, centerPoint.latitude, centerPoint.longitude, centerPoint.zoom]);
 
   return (
     <section className={`${block} map ${isOfferMap ? 'map--offer' : ''}`} ref={mapRef}></section>
