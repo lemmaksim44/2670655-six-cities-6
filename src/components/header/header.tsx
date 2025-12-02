@@ -1,13 +1,20 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatchType, RootState } from '../../store';
 import { AuthorizationStatus } from '../../const';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { fetchLogout } from '../../store/user/action';
 
 function Header() {
-  const authorizationStatus = useSelector((state: RootState) => state.authorizationStatus);
+  const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const user = useSelector((state: RootState) => state.user.userInfo);
+  const dispatch = useDispatch<AppDispatchType>();
+
+  const handleLogout = () => {
+    dispatch(fetchLogout());
+  };
 
   return(
     <header className="header">
@@ -26,12 +33,12 @@ function Header() {
                     <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__user-name user__name">{user?.email}</span>
                       <span className="header__favorite-count">3</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to={AppRoute.Main}>
+                    <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogout}>
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>

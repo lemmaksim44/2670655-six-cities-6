@@ -3,7 +3,7 @@ import MainPageCities from './main-page-cities';
 import Header from '../../components/header/header';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatchType } from '../../store';
-import { fetchOffers } from '../../store/action';
+import { fetchOffers } from '../../store/offers/action';
 import { useEffect } from 'react';
 import MainPageEmpty from './main-page-empty';
 import Spinner from '../../components/spinner/spinner';
@@ -17,10 +17,10 @@ function MainPage() {
   }, [dispatch]);
 
   const offers = useSelector((state: RootState) => state.offers);
-  const city = useSelector((state: RootState) => state.city);
-  const filteredOffers = offers.filter((offer) => offer.city.name === city.toString());
+  const city = useSelector((state: RootState) => state.offers.city);
+  const filteredOffers = offers.offers.filter((offer) => offer.city.name === city.toString());
   const hasOffers = filteredOffers.length > 0;
-  const isOffersLoading = useSelector((state: RootState) => state.isOffersLoading);
+  const isOffersLoading = useSelector((state: RootState) => state.offers.isOffersLoading);
 
   let content;
 

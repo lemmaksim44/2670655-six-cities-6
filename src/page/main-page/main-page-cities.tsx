@@ -15,7 +15,7 @@ type MainPageCitiesProps = {
 
 function MainPageCities({offers}: MainPageCitiesProps) {
   const [hoveredCardId, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
-  const city = useSelector((state: RootState) => state.city);
+  const city = useSelector((state: RootState) => state.offers.city);
 
   function handleCardHover(id: OfferPreviewType['id'] | null) {
     setHoveredCardId(id);
