@@ -1,16 +1,18 @@
 import { OfferPreviewType } from '../types/offer-preview';
 import { createReducer } from '@reduxjs/toolkit';
-import { City } from '../const';
-import { fetchOffers, setCity } from './action';
+import { City, AuthorizationStatus } from '../const';
+import { fetchOffers, setCity, setAuthorizationStatus } from './action';
 
 const initialState: {
   offers: OfferPreviewType[];
   city: City;
   isOffersLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
 } = {
   offers: [],
   city: City.Paris,
   isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -30,5 +32,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });

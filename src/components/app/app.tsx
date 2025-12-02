@@ -11,10 +11,15 @@ import { OfferPreviewType } from '../../types/offer-preview';
 import { OfferType } from '../../types/offer';
 import { ReviewType } from '../../types/review';
 
+import { store } from '../../store';
+import { fetchCheckAuth } from '../../store/action';
+
 function App() {
   const offers: OfferPreviewType[] = [];
   const offerId: OfferType[] = [];
   const reviews: ReviewType[] = [];
+
+  store.dispatch(fetchCheckAuth);
 
   return (
     <BrowserRouter>
