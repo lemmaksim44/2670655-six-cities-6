@@ -7,21 +7,21 @@ import FavoritesPage from '../../page/favorites-page/favorites-page';
 import OfferPage from '../../page/offer-page/offer-page';
 import Page404 from '../../page/page-404/page-404';
 
+import { OfferPreviewType } from '../../types/offer-preview';
 import { OfferType } from '../../types/offer';
 import { ReviewType } from '../../types/review';
 
-type AppProps = {
-  offers: OfferType[];
-  reviews: ReviewType[];
-}
+function App() {
+  const offers: OfferPreviewType[] = [];
+  const offerId: OfferType[] = [];
+  const reviews: ReviewType[] = [];
 
-function App({offers, reviews}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainPage offers={offers}/>}
+          element={<MainPage/>}
         />
         <Route
           path={AppRoute.Login}
@@ -39,7 +39,7 @@ function App({offers, reviews}: AppProps) {
         />
         <Route
           path={`${AppRoute.Offer}/:id`}
-          element={<OfferPage offers={offers} offersNearby={offers} reviews={reviews}/>}
+          element={<OfferPage offers={offerId} offersNearby={offers} reviews={reviews}/>}
         />
         <Route
           path={AppRoute.Page404}
