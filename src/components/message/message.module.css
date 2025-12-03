@@ -1,0 +1,38 @@
+.messageContainer {
+  position: fixed;
+  top: 200px;
+  right: 20px;
+
+  min-width: 220px;
+  padding: 10px 16px;
+
+  background-color: red;
+  color: white;
+
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+  z-index: 9999; /* поверх всего */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  animation: fadeIn 0.2s ease-out;
+}
+
+.messageText {
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Анимация появления */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

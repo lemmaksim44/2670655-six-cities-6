@@ -1,6 +1,6 @@
-import { OfferPreviewType } from '../types/offer-preview';
 import { createReducer } from '@reduxjs/toolkit';
-import { City } from '../const';
+import { OfferPreviewType } from '../../types/offer-preview';
+import { City } from '../../const';
 import { fetchOffers, setCity } from './action';
 
 const initialState: {
@@ -13,7 +13,7 @@ const initialState: {
   isOffersLoading: false,
 };
 
-export const reducer = createReducer(initialState, (builder) => {
+export const offersReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;

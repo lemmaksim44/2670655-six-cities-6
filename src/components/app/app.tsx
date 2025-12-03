@@ -1,5 +1,5 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../../page/main-page/main-page';
 import LoginPage from '../../page/login-page/login-page';
@@ -11,10 +11,20 @@ import { OfferPreviewType } from '../../types/offer-preview';
 import { OfferType } from '../../types/offer';
 import { ReviewType } from '../../types/review';
 
+import { fetchCheckAuth } from '../../store/user/action';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatchType } from '../../store';
+
 function App() {
   const offers: OfferPreviewType[] = [];
   const offerId: OfferType[] = [];
   const reviews: ReviewType[] = [];
+  const dispatch = useDispatch<AppDispatchType>();
+
+  useEffect(() => {
+    dispatch(fetchCheckAuth());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
@@ -30,9 +40,7 @@ function App() {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute
-              authorizationStatus={AuthorizationStatus.Auth}
-            >
+            <PrivateRoute>
               <FavoritesPage offers={offers}/>
             </PrivateRoute>
           }
