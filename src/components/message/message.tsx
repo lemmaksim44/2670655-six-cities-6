@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setServerError } from "../../store/error/action";
-import { RootState } from "../../store";
-import style from './message.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setServerError } from '../../store/error/action';
+import { RootState } from '../../store';
+import style from './message.module.css';
 
 function Message() {
   const message = useSelector((state: RootState) => state.error.serverError);
