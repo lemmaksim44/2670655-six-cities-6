@@ -3,6 +3,9 @@ import { UserAuthType } from '../../types/user-auth';
 import { AuthorizationStatus } from '../../const';
 import { LoginData } from '../../types/login';
 import { AxiosInstance, AxiosError } from 'axios';
+import { setServerError } from '../error/action';
+
+const nameToken = 'six-cities-token';
 
 export const setUserInfo = createAction<UserAuthType | null>('user/setUserInfo');
 
@@ -14,7 +17,7 @@ export const fetchCheckAuth = createAsyncThunk<void, undefined, { extra: AxiosIn
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
 
-    const token = localStorage.getItem('Authorization_Token');
+    const token = localStorage.getItem(nameToken);
 
     if (!token) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
@@ -29,6 +32,7 @@ export const fetchCheckAuth = createAsyncThunk<void, undefined, { extra: AxiosIn
       });
 
       if (status === 200) {
+        dispatch(setServerError(null));
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
         dispatch(setUserInfo(data));
       }
@@ -38,8 +42,13 @@ export const fetchCheckAuth = createAsyncThunk<void, undefined, { extra: AxiosIn
       const error = err as AxiosError;
 
       if (error.response?.status === 401) {
+        dispatch(setServerError(null));
         dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
         return;
+      }
+
+      if (!error.response) {
+        dispatch(setServerError('Сервер недоступен'));
       }
 
       dispatch(setAuthorizationStatus(AuthorizationStatus.Unknown));
@@ -57,7 +66,8 @@ export const fetchLogin = createAsyncThunk<void, LoginData, { extra: AxiosInstan
       });
 
       if (status === 201) {
-        localStorage.setItem('Authorization_Token', data.token);
+        dispatch(setServerError(null));
+        localStorage.setItem(nameToken, data.token);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
         dispatch(setUserInfo(data));
       }
@@ -65,7 +75,12 @@ export const fetchLogin = createAsyncThunk<void, LoginData, { extra: AxiosInstan
       const error = err as AxiosError;
 
       if (error.response?.status === 400) {
+        dispatch(setServerError(null));
         dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+      }
+
+      if (!error.response) {
+        dispatch(setServerError('Сервер недоступен'));
       }
 
       dispatch(setAuthorizationStatus(AuthorizationStatus.Unknown));
@@ -76,7 +91,7 @@ export const fetchLogin = createAsyncThunk<void, LoginData, { extra: AxiosInstan
 export const fetchLogout = createAsyncThunk<void, void, { extra: AxiosInstance }>(
   'user/logout',
   async (_arg, { dispatch, extra: api }) => {
-    const token = localStorage.getItem('Authorization_Token');
+    const token = localStorage.getItem(nameToken);
 
     if (!token) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
@@ -92,12 +107,20 @@ export const fetchLogout = createAsyncThunk<void, void, { extra: AxiosInstance }
       });
 
       if (status === 204) {
-        localStorage.removeItem('Authorization_Token');
+        dispatch(setServerError(null));
+        localStorage.removeItem(nameToken);
         dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
         dispatch(setUserInfo(null));
       }
     } catch (err) {
-      localStorage.removeItem('Authorization_Token');
+      const error = err as AxiosError;
+
+      if (!error.response) {
+        dispatch(setServerError('Сервер недоступен'));
+      }
+
+      dispatch(setServerError(null));
+      localStorage.removeItem(nameToken);
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
       dispatch(setUserInfo(null));
     }

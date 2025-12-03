@@ -7,11 +7,13 @@ import { AuthorizationStatus } from '../../const';
 import { FormEvent } from 'react';
 import { fetchLogin } from '../../store/user/action';
 import { AppDispatchType } from '../../store';
+import Message from '../../components/message/message';
 
 function LoginPage() {
   const dispatch: AppDispatchType = useDispatch();
 
   const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
+  const isError = useSelector((state: RootState) => state.error.serverError !== null);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,6 +42,7 @@ function LoginPage() {
       </header>
 
       <main className="page__main page__main--login">
+        {isError && <Message />}
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
