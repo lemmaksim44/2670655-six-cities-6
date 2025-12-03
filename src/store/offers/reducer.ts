@@ -1,20 +1,28 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { OfferPreviewType } from '../../types/offer-preview';
+import { OfferType } from '../../types/offer';
 import { City } from '../../const';
-import { fetchOffers, setCity } from './action';
+import { setCity, fetchOffers, fetchOfferById } from './action';
 
 const initialState: {
-  offers: OfferPreviewType[];
   city: City;
+  offers: OfferPreviewType[];
   isOffersLoading: boolean;
+  offer: OfferType | null;
+  isOfferLoading: boolean;
 } = {
-  offers: [],
   city: City.Paris,
+  offers: [],
   isOffersLoading: false,
+  offer: null,
+  isOfferLoading: false,
 };
 
 export const offersReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setCity, (state, action) => {
+      state.city = action.payload;
+    })
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;
     })
@@ -28,7 +36,16 @@ export const offersReducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers.rejected, (state) => {
       state.isOffersLoading = false;
     })
-    .addCase(setCity, (state, action) => {
-      state.city = action.payload;
+    .addCase(fetchOfferById.pending, (state) => {
+      state.offer = null;
+      state.isOfferLoading = true;
+    })
+    .addCase(fetchOfferById.fulfilled, (state, action: PayloadAction<OfferType | null>) => {
+      state.offer = action.payload;
+      state.isOfferLoading = false;
+    })
+    .addCase(fetchOfferById.rejected, (state) => {
+      state.offer = null;
+      state.isOfferLoading = false;
     });
 });

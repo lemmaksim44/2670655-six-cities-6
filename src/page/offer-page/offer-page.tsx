@@ -1,39 +1,65 @@
-import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { ReviewType } from '../../types/review';
-import { useParams, Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Header from '../../components/header/header';
 import OfferPageDetails from './offer-page-details';
 import OfferNearList from './offer-near-list';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { AppDispatchType } from '../../store';
+import { Fragment, useEffect } from 'react';
+import { fetchOfferById } from '../../store/offers/action';
+import Spinner from '../../components/spinner/spinner';
+import Page404 from '../page-404/page-404';
+import Footer from '../../components/footer/footer';
 
 type OfferPageProps = {
-  offers: OfferType[];
   offersNearby: OfferPreviewType[];
   reviews: ReviewType[];
 }
 
-function OfferPage({offers, offersNearby, reviews}: OfferPageProps) {
-  const {id} = useParams();
-  const offer = offers.find((item) => item.id === id);
+function OfferPage({offersNearby, reviews}: OfferPageProps) {
+  const { id } = useParams<{ id: string }>();
+  const dispatch: AppDispatchType = useDispatch();
 
-  if (!offer) {
-    return <Navigate to={AppRoute.Page404} />;
-  }
+  const offer = useSelector((state: RootState) => state.offers.offer);
+  const isOfferLoading = useSelector((state: RootState) => state.offers.isOfferLoading);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferById(id));
+    }
+  }, [dispatch, id]);
 
   const nearOffersNumber = 3;
-  const offersStub = offersNearby
+  const offersStub = offersNearby/*
     .filter((item) => item.id !== offer.id)
-    .slice(0, nearOffersNumber);
+    .slice(0, nearOffersNumber);*/
 
   return (
     <div className="page">
-      <Header/>
-
-      <main className="page__main page__main--offer">
-        <OfferPageDetails offer={offer} offersNearby={offersStub} reviews={reviews} />
-        <OfferNearList offerNearby={offersStub} />
-      </main>
+      {!offer && !isOfferLoading ? (
+        <Page404/>
+      ) : (
+        <Fragment>
+          <Header/>
+          <main className="page__main page__main--offer">
+            {isOfferLoading && (
+              <Fragment>
+                <Spinner/>
+                <Footer/>
+              </Fragment>
+            )}
+            {offer && (
+              <Fragment>
+                <OfferPageDetails offer={offer} offersNearby={offersStub} reviews={reviews}/>
+                <OfferNearList offerNearby={offersStub}/>
+              </Fragment>
+            )}
+          </main>
+        </Fragment>
+      )}
     </div>
   );
 }
