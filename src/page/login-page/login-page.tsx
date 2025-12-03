@@ -8,12 +8,17 @@ import { FormEvent } from 'react';
 import { fetchLogin } from '../../store/user/action';
 import { AppDispatchType } from '../../store';
 import Message from '../../components/message/message';
+import { City } from '../../const';
+import { setCity } from '../../store/offers/action';
 
 function LoginPage() {
   const dispatch: AppDispatchType = useDispatch();
 
   const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
   const isError = useSelector((state: RootState) => state.error.serverError !== null);
+
+  const cities: City[] = Object.values(City);
+  const randomCity = cities[Math.floor(Math.random() * cities.length)];
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -60,8 +65,12 @@ function LoginPage() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>Amsterdam</span>
+              <Link
+                className="locations__item-link"
+                to={AppRoute.Main}
+                onClick={() => dispatch(setCity(randomCity))}
+              >
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>
