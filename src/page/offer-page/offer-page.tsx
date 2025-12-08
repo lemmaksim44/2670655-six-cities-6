@@ -1,4 +1,3 @@
-import { ReviewType } from '../../types/review';
 import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import OfferPageDetails from './offer-page-details';
@@ -12,12 +11,9 @@ import Spinner from '../../components/spinner/spinner';
 import Page404 from '../page-404/page-404';
 import Footer from '../../components/footer/footer';
 import { sortByNearestOffers } from '../../utils/scripts';
+import { fetchReviewsByOfferId } from '../../store/reviews/action';
 
-type OfferPageProps = {
-  reviews: ReviewType[];
-}
-
-function OfferPage({reviews}: OfferPageProps) {
+function OfferPage() {
   const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatchType = useDispatch();
 
@@ -26,14 +22,15 @@ function OfferPage({reviews}: OfferPageProps) {
 
   const nearOffersLimit = 3;
   const offers = useSelector((state: RootState) => state.offers.offersNearby);
-  const offersNear = offer
-    ? sortByNearestOffers(offers, offer).slice(0, nearOffersLimit)
-    : [];
+  const offersNear = offer ? sortByNearestOffers(offers, offer).slice(0, nearOffersLimit) : [];
+
+  const reviews = useSelector((state: RootState) => state.reviews.reviews);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferById(id));
       dispatch(fetchNearbyOffers(id));
+      dispatch(fetchReviewsByOfferId(id));
     }
   }, [dispatch, id]);
 

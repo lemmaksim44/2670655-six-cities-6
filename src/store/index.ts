@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { offersReducer} from './offers/reducer';
 import { userReducer } from './user/reducer';
+import { reviewsReducer } from './reviews/reducer';
 import { errorReducer } from './error/reducer';
 import { createAPI } from '../services/api';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     offers: offersReducer,
+    reviews: reviewsReducer,
     error: errorReducer,
   },
   middleware: (getDefaultMiddleware) =>
