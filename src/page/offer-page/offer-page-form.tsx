@@ -1,7 +1,18 @@
-import { useState, Fragment, ChangeEvent } from 'react';
+import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ratings } from './const';
+import { AppDispatchType, RootState } from '../../store';
+import { sendReview } from '../../store/reviews/action';
+import { fetchReviewsByOfferId } from '../../store/reviews/action';
 
-function OfferPageForm() {
+type OfferPageFormProps = {
+  offerId: string;
+};
+
+function OfferPageForm({ offerId }: OfferPageFormProps) {
+  const dispatch: AppDispatchType = useDispatch();
+  const isSending = useSelector((state: RootState) => state.reviews.isSending);
+
   const [formData, setFormData] = useState({
     rating: '',
     review: '',
@@ -12,8 +23,31 @@ function OfferPageForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = async (evt: FormEvent) => {
+    evt.preventDefault();
+
+    if (!formData.rating || formData.review.length < 50 || formData.review.length > 300) {
+      return;
+    }
+
+    await dispatch(sendReview({
+      offerId,
+      rating: Number(formData.rating),
+      comment: formData.review,
+    })).unwrap();
+
+    setFormData({ rating: '', review: '' });
+    dispatch(fetchReviewsByOfferId(offerId));
+  };
+
+  const isSubmitDisabled =
+    !formData.rating ||
+    formData.review.length < 50 ||
+    formData.review.length > 300 ||
+    isSending;
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratings.map((star) => (
@@ -26,6 +60,7 @@ function OfferPageForm() {
               id={`${star.value}-stars`}
               type="radio"
               checked={formData.rating === star.value.toString()}
+              disabled={isSending}
             />
             <label
               htmlFor={`${star.value}-stars`}
@@ -39,12 +74,20 @@ function OfferPageForm() {
           </Fragment>
         ))}
       </div>
-      <textarea onChange={handleFieldChange} className="reviews__textarea form__textarea" id="review" name="review" value={formData.review} placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
+      <textarea
+        onChange={handleFieldChange}
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        value={formData.review}
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        disabled={isSending}
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!formData.rating || formData.review.length < 50}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitDisabled}>Submit</button>
       </div>
     </form>
   );

@@ -17,7 +17,7 @@ type OfferPageDetailsProps = {
 
 function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps) {
   const isAuth = useSelector((state: RootState) => state.user.authorizationStatus === AuthorizationStatus.Auth);
-
+  const isReviews = Array.isArray(reviews);
 
   return (
     <section className="offer">
@@ -102,8 +102,8 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
             </div>
           </div>
           <section className="offer__reviews reviews">
-            <OfferPageReviewsList reviews={reviews} />
-            {isAuth && <OfferPageForm/>}
+            {isReviews && <OfferPageReviewsList reviews={reviews}/>}
+            {isAuth && <OfferPageForm offerId={offer.id}/>}
           </section>
         </div>
       </div>
