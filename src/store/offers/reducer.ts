@@ -2,7 +2,7 @@ import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { OfferType } from '../../types/offer';
 import { City } from '../../const';
-import { setCity, fetchOffers, fetchOfferById } from './action';
+import { setCity, fetchOffers, fetchOfferById, fetchNearbyOffers } from './action';
 
 const initialState: {
   city: City;
@@ -10,12 +10,14 @@ const initialState: {
   isOffersLoading: boolean;
   offer: OfferType | null;
   isOfferLoading: boolean;
+  offersNearby: OfferPreviewType[];
 } = {
   city: City.Paris,
   offers: [],
   isOffersLoading: false,
   offer: null,
   isOfferLoading: false,
+  offersNearby: [],
 };
 
 export const offersReducer = createReducer(initialState, (builder) => {
@@ -47,5 +49,14 @@ export const offersReducer = createReducer(initialState, (builder) => {
     .addCase(fetchOfferById.rejected, (state) => {
       state.offer = null;
       state.isOfferLoading = false;
+    })
+    .addCase(fetchNearbyOffers.pending, (state) => {
+      state.offersNearby = [];
+    })
+    .addCase(fetchNearbyOffers.fulfilled, (state, action: PayloadAction<OfferPreviewType[]>) => {
+      state.offersNearby = action.payload;
+    })
+    .addCase(fetchNearbyOffers.rejected, (state) => {
+      state.offersNearby = [];
     });
 });

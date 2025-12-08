@@ -1,7 +1,5 @@
-import { OfferPreviewType } from '../../types/offer-preview';
 import { ReviewType } from '../../types/review';
-import { Navigate, useParams } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import OfferPageDetails from './offer-page-details';
 import OfferNearList from './offer-near-list';
@@ -9,33 +7,35 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { AppDispatchType } from '../../store';
 import { Fragment, useEffect } from 'react';
-import { fetchOfferById } from '../../store/offers/action';
+import { fetchOfferById, fetchNearbyOffers } from '../../store/offers/action';
 import Spinner from '../../components/spinner/spinner';
 import Page404 from '../page-404/page-404';
 import Footer from '../../components/footer/footer';
+import { sortByNearestOffers } from '../../utils/scripts';
 
 type OfferPageProps = {
-  offersNearby: OfferPreviewType[];
   reviews: ReviewType[];
 }
 
-function OfferPage({offersNearby, reviews}: OfferPageProps) {
+function OfferPage({reviews}: OfferPageProps) {
   const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatchType = useDispatch();
 
   const offer = useSelector((state: RootState) => state.offers.offer);
   const isOfferLoading = useSelector((state: RootState) => state.offers.isOfferLoading);
 
+  const nearOffersLimit = 3;
+  const offers = useSelector((state: RootState) => state.offers.offersNearby);
+  const offersNear = offer
+    ? sortByNearestOffers(offers, offer).slice(0, nearOffersLimit)
+    : [];
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferById(id));
+      dispatch(fetchNearbyOffers(id));
     }
   }, [dispatch, id]);
-
-  const nearOffersNumber = 3;
-  const offersStub = offersNearby/*
-    .filter((item) => item.id !== offer.id)
-    .slice(0, nearOffersNumber);*/
 
   return (
     <div className="page">
@@ -53,8 +53,8 @@ function OfferPage({offersNearby, reviews}: OfferPageProps) {
             )}
             {offer && (
               <Fragment>
-                <OfferPageDetails offer={offer} offersNearby={offersStub} reviews={reviews}/>
-                <OfferNearList offerNearby={offersStub}/>
+                <OfferPageDetails offer={offer} offersNearby={offersNear} reviews={reviews}/>
+                <OfferNearList offerNearby={offersNear}/>
               </Fragment>
             )}
           </main>

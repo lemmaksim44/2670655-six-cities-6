@@ -58,3 +58,32 @@ export const fetchOfferById = createAsyncThunk<OfferType | null, string, { extra
     }
   }
 );
+
+export const fetchNearbyOffers = createAsyncThunk<OfferType[], string, { extra: AxiosInstance }>(
+  'offer/fetchNearbyOffers',
+  async (offerId, { dispatch, extra: api }) => {
+    try {
+      const token = localStorage.getItem('six-cities-token');
+      const headers: Record<string, string> = {};
+
+      if (token) {
+        headers['X-Token'] = token;
+      }
+
+      const { data } = await api.get<OfferType[]>(`/offers/${offerId}/nearby`, {
+        headers,
+      });
+
+      dispatch(setServerError(null));
+      return data;
+    } catch (err) {
+      const error = err as AxiosError;
+
+      if (!error.response) {
+        dispatch(setServerError('Сервер недоступен'));
+      }
+
+      return [];
+    }
+  }
+);

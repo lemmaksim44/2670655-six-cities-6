@@ -8,7 +8,6 @@ import OfferPage from '../../page/offer-page/offer-page';
 import Page404 from '../../page/page-404/page-404';
 
 import { OfferPreviewType } from '../../types/offer-preview';
-import { OfferType } from '../../types/offer';
 import { ReviewType } from '../../types/review';
 
 import { fetchCheckAuth } from '../../store/user/action';
@@ -18,7 +17,6 @@ import { AppDispatchType } from '../../store';
 
 function App() {
   const offers: OfferPreviewType[] = [];
-  const offerId: OfferType[] = [];
   const reviews: ReviewType[] = [];
   const dispatch = useDispatch<AppDispatchType>();
 
@@ -47,7 +45,7 @@ function App() {
         />
         <Route
           path={`${AppRoute.Offer}/:id`}
-          element={<OfferPage offersNearby={offers} reviews={reviews}/>}
+          element={<OfferPage reviews={reviews}/>}
         />
         <Route
           path={AppRoute.Page404}
