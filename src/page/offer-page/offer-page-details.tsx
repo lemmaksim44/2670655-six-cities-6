@@ -6,8 +6,7 @@ import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
 import Map from '../../components/map/map';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { AuthorizationStatus } from '../../const';
+import { selectIsAuth } from '../../store/user/selectors';
 
 type OfferPageDetailsProps = {
   offer: OfferType;
@@ -15,7 +14,7 @@ type OfferPageDetailsProps = {
 }
 
 function OfferPageDetails({offer, offersNearby}: OfferPageDetailsProps) {
-  const isAuth = useSelector((state: RootState) => state.user.authorizationStatus === AuthorizationStatus.Auth);
+  const isAuth = useSelector(selectIsAuth);
 
   return (
     <section className="offer">

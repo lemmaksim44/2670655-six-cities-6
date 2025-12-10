@@ -9,7 +9,18 @@ export const selectReviewsCount = createSelector(
   (reviews) => reviews.length
 );
 
-export const selectReviewsSortedByDate = (limit: number = 5) => createSelector(
-  selectReviews,
-  (reviews) => [...reviews].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, limit)
-);
+export const selectReviewsSortedByDate = (limit: number = 5) =>
+  createSelector(
+    selectReviews,
+    (reviews) => {
+      if (!Array.isArray(reviews)) {
+        return [];
+      }
+
+      return reviews
+        .slice()
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, limit);
+    }
+  );
+
