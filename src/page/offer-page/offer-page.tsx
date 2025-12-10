@@ -10,19 +10,18 @@ import { fetchOfferById, fetchNearbyOffers } from '../../store/offers/action';
 import Spinner from '../../components/spinner/spinner';
 import Page404 from '../page-404/page-404';
 import Footer from '../../components/footer/footer';
-import { sortByNearestOffers } from '../../utils/scripts';
 import { fetchReviewsByOfferId } from '../../store/reviews/action';
+import { selectOffer, selectIsOfferLoading, selectOffersNearbyByOffer } from '../../store/offers/selectors';
 
 function OfferPage() {
   const { id } = useParams<{ id: string }>();
   const dispatch: AppDispatchType = useDispatch();
 
-  const offer = useSelector((state: RootState) => state.offers.offer);
-  const isOfferLoading = useSelector((state: RootState) => state.offers.isOfferLoading);
+  const offer = useSelector(selectOffer);
+  const isOfferLoading = useSelector(selectIsOfferLoading);
 
   const nearOffersLimit = 3;
-  const offers = useSelector((state: RootState) => state.offers.offersNearby);
-  const offersNear = offer ? sortByNearestOffers(offers, offer).slice(0, nearOffersLimit) : [];
+  const offersNear = useSelector(selectOffersNearbyByOffer(offer, nearOffersLimit));
 
   const reviews = useSelector((state: RootState) => state.reviews.reviews);
 

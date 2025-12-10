@@ -4,9 +4,10 @@ import Header from '../../components/header/header';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatchType } from '../../store';
 import { fetchOffers } from '../../store/offers/action';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import MainPageEmpty from './main-page-empty';
 import Spinner from '../../components/spinner/spinner';
+import { selectOffersByCity, selectIsOffersLoading } from '../../store/offers/selectors';
 
 
 function MainPage() {
@@ -16,23 +17,17 @@ function MainPage() {
     dispatch(fetchOffers());
   }, [dispatch]);
 
-  const offers = useSelector((state: RootState) => state.offers);
-  const city = useSelector((state: RootState) => state.offers.city);
-
-  const filteredOffers = useMemo(
-    () => offers.offers.filter((offer) => offer.city.name === city.toString()),
-    [offers.offers, city]
-  );
+  const filteredOffers = useSelector(selectOffersByCity);
 
   const hasOffers = filteredOffers.length > 0;
-  const isOffersLoading = useSelector((state: RootState) => state.offers.isOffersLoading);
+  const isOffersLoading = useSelector(selectIsOffersLoading);
 
   let content;
 
   if (isOffersLoading) {
     content = <Spinner />;
   } else if (hasOffers) {
-    content = <MainPageCities offers={filteredOffers} />;
+    content = <MainPageCities />;
   } else {
     content = <MainPageEmpty />;
   }
