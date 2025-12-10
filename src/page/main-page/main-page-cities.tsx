@@ -1,6 +1,6 @@
 import Card from '../../components/card/card';
 import { OfferPreviewType } from '../../types/offer-preview';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import Map from '../../components/map/map';
 import { plural } from '../../utils/scripts';
 import { useSelector } from 'react-redux';
@@ -17,9 +17,9 @@ function MainPageCities({offers}: MainPageCitiesProps) {
   const [hoveredCardId, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);
   const city = useSelector((state: RootState) => state.offers.city);
 
-  function handleCardHover(id: OfferPreviewType['id'] | null) {
+  const handleCardHover = useCallback((id: OfferPreviewType['id'] | null) => {
     setHoveredCardId(id);
-  }
+  }, []);
 
   const [currentSortOption, setCurrentSortOption] = useState(SortingOptions.Popular);
   const sortedOffers = useMemo(

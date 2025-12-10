@@ -2,6 +2,7 @@ import { OfferPreviewType } from '../../types/offer-preview';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { capitalize, getRating } from '../../utils/scripts';
+import { memo } from 'react';
 
 type CardProps = {
   offer: OfferPreviewType;
@@ -69,4 +70,4 @@ function Card({offer, block, onMouseHover}: CardProps) {
   );
 }
 
-export default Card;
+export default memo(Card);
