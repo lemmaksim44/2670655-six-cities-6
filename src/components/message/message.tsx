@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { setServerError } from '../../store/error/action';
-import { RootState } from '../../store';
+import { selectServerError } from '../../store/error/selectors';
 import style from './message.module.css';
 
 function Message() {
-  const message = useSelector((state: RootState) => state.error.serverError);
+  const message = useSelector(selectServerError);
   const dispatch = useDispatch();
 
   useEffect(() => {

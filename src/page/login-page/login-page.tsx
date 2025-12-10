@@ -5,11 +5,12 @@ import { RootState, AppDispatchType } from '../../store';
 import Message from '../../components/message/message';
 import LoginForm from './login-form';
 import { setCity } from '../../store/offers/action';
+import { selectIsError } from '../../store/error/selectors';
 
 function LoginPage() {
   const dispatch: AppDispatchType = useDispatch();
   const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
-  const isError = useSelector((state: RootState) => state.error.serverError !== null);
+  const isError = useSelector(selectIsError);
 
   const cities: City[] = Object.values(City);
   const randomCity = cities[Math.floor(Math.random() * cities.length)];

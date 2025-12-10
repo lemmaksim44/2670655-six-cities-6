@@ -6,12 +6,13 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { fetchLogout } from '../../store/user/action';
 import Message from '../message/message';
+import { selectIsError } from '../../store/error/selectors';
 
 function Header() {
   const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
   const user = useSelector((state: RootState) => state.user.userInfo);
-  const isError = useSelector((state: RootState) => state.error.serverError !== null);
+  const isError = useSelector(selectIsError);
   const dispatch = useDispatch<AppDispatchType>();
 
   const handleLogout = () => {
