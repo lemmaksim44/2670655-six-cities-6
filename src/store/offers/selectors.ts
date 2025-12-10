@@ -2,8 +2,8 @@ import { createSelector } from 'reselect';
 import { RootState } from '..';
 import { SortingOptions } from '../../const';
 import { sortOffers } from '../../utils/sorts';
-import { OfferPreviewType } from '../../types/offer-preview';
 import { sortByNearestOffers } from '../../utils/scripts';
+import { OfferType } from '../../types/offer';
 
 export const selectCity = (state: RootState) => state.offers.city;
 export const selectOffers = (state: RootState) => state.offers.offers;
@@ -24,7 +24,7 @@ export const selectSortedOffers = (sortOption: SortingOptions) =>
     (offers) => sortOffers(offers, sortOption)
 );
 
-export const selectOffersNearbyByOffer = (offer: OfferPreviewType | null, limit: number = 3) =>
+export const selectOffersNearbyByOffer = (offer: OfferType | null, limit: number = 3) =>
   createSelector(
     selectOffersNearby,
     (offers) => {

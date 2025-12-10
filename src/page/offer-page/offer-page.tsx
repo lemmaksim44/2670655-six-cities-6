@@ -3,7 +3,6 @@ import Header from '../../components/header/header';
 import OfferPageDetails from './offer-page-details';
 import OfferNearList from './offer-near-list';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
 import { AppDispatchType } from '../../store';
 import { Fragment, useEffect } from 'react';
 import { fetchOfferById, fetchNearbyOffers } from '../../store/offers/action';
@@ -22,8 +21,6 @@ function OfferPage() {
 
   const nearOffersLimit = 3;
   const offersNear = useSelector(selectOffersNearbyByOffer(offer, nearOffersLimit));
-
-  const reviews = useSelector((state: RootState) => state.reviews.reviews);
 
   useEffect(() => {
     if (id) {
@@ -49,7 +46,7 @@ function OfferPage() {
             )}
             {offer && (
               <Fragment>
-                <OfferPageDetails offer={offer} offersNearby={offersNear} reviews={reviews}/>
+                <OfferPageDetails offer={offer} offersNearby={offersNear}/>
                 <OfferNearList offerNearby={offersNear}/>
               </Fragment>
             )}

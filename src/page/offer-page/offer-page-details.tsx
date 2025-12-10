@@ -12,12 +12,10 @@ import { AuthorizationStatus } from '../../const';
 type OfferPageDetailsProps = {
   offer: OfferType;
   offersNearby: OfferPreviewType[];
-  reviews: ReviewType[];
 }
 
-function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps) {
+function OfferPageDetails({offer, offersNearby}: OfferPageDetailsProps) {
   const isAuth = useSelector((state: RootState) => state.user.authorizationStatus === AuthorizationStatus.Auth);
-  const isReviews = Array.isArray(reviews);
 
   return (
     <section className="offer">
@@ -102,7 +100,7 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
             </div>
           </div>
           <section className="offer__reviews reviews">
-            {isReviews && <OfferPageReviewsList reviews={reviews}/>}
+            <OfferPageReviewsList/>
             {isAuth && <OfferPageForm offerId={offer.id}/>}
           </section>
         </div>
