@@ -4,6 +4,7 @@ import { AuthorizationStatus } from '../../const';
 import { LoginData } from '../../types/login';
 import { AxiosInstance, AxiosError } from 'axios';
 import { setServerError } from '../error/action';
+import { tokenService } from '../../services/token';
 
 const nameToken = 'six-cities-token';
 
@@ -25,11 +26,15 @@ export const fetchCheckAuth = createAsyncThunk<void, undefined, { extra: AxiosIn
     }
 
     try {
-      const { data, status } = await api.get<UserAuthType>('/login', {
-        headers: {
-          'X-Token': token,
-        },
-      });
+      const headers = tokenService.getAuthHeaders();
+      const token = tokenService.get();
+
+      if (!token) {
+        dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
+        return;
+      }
+
+      const { data, status } = await api.get<UserAuthType>('/login', { headers });
 
       if (status === 200) {
         dispatch(setServerError(null));
@@ -60,14 +65,11 @@ export const fetchLogin = createAsyncThunk<void, LoginData, { extra: AxiosInstan
   'user/login',
   async ({ email, password }, { dispatch, extra: api }) => {
     try {
-      const { data, status } = await api.post<UserAuthType>('/login', {
-        email,
-        password,
-      });
+      const { data, status } = await api.post<UserAuthType>('/login', { email, password });
 
       if (status === 201) {
         dispatch(setServerError(null));
-        localStorage.setItem(nameToken, data.token);
+        tokenService.set(data.token);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
         dispatch(setUserInfo(data));
       }
@@ -91,7 +93,7 @@ export const fetchLogin = createAsyncThunk<void, LoginData, { extra: AxiosInstan
 export const fetchLogout = createAsyncThunk<void, void, { extra: AxiosInstance }>(
   'user/logout',
   async (_arg, { dispatch, extra: api }) => {
-    const token = localStorage.getItem(nameToken);
+    const token = tokenService.get();
 
     if (!token) {
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
@@ -100,15 +102,13 @@ export const fetchLogout = createAsyncThunk<void, void, { extra: AxiosInstance }
     }
 
     try {
-      const { status } = await api.delete('/six-cities/logout', {
-        headers: {
-          'X-Token': token,
-        },
+      const { status } = await api.delete('/logout', {
+        headers: tokenService.getAuthHeaders(),
       });
 
       if (status === 204) {
         dispatch(setServerError(null));
-        localStorage.removeItem(nameToken);
+        tokenService.remove();
         dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
         dispatch(setUserInfo(null));
       }
@@ -120,7 +120,7 @@ export const fetchLogout = createAsyncThunk<void, void, { extra: AxiosInstance }
       }
 
       dispatch(setServerError(null));
-      localStorage.removeItem(nameToken);
+      tokenService.remove();
       dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
       dispatch(setUserInfo(null));
     }
