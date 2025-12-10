@@ -26,7 +26,7 @@ export const selectSortedOffers = (sortOption: SortingOptions) =>
 
 export const selectOffersNearbyByOffer = (offer: OfferPreviewType | null, limit: number = 3) =>
   createSelector(
-    (state: RootState) => state.offers.offersNearby,
+    selectOffersNearby,
     (offers) => {
       if (!offer) return [];
       return sortByNearestOffers(offers, offer).slice(0, limit);
