@@ -47,7 +47,12 @@ function OfferPageForm({ offerId }: OfferPageFormProps) {
     isSending;
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form
+      className="reviews__form form"
+      onSubmit={(e) => {
+        void handleSubmit(e);
+      }}
+    >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratings.map((star) => (
