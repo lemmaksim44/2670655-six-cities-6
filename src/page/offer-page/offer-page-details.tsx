@@ -1,10 +1,13 @@
 import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { ReviewType } from '../../types/review';
-import { capitalize, getRating } from '../../utils/scripts';
+import { capitalize, getRating, plural } from '../../utils/scripts';
 import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
 import Map from '../../components/map/map';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { AuthorizationStatus } from '../../const';
 
 type OfferPageDetailsProps = {
   offer: OfferType;
@@ -13,11 +16,14 @@ type OfferPageDetailsProps = {
 }
 
 function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps) {
+  const isAuth = useSelector((state: RootState) => state.user.authorizationStatus === AuthorizationStatus.Auth);
+  const isReviews = Array.isArray(reviews);
+
   return (
     <section className="offer">
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {offer.images.map((image) => (
+          {offer.images.slice(0, 6).map((image) => (
             <div className="offer__image-wrapper" key={image}>
               <img className="offer__image" src={image} alt="Photo studio" />
             </div>
@@ -54,10 +60,10 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
               {capitalize(offer.type)}
             </li>
             <li className="offer__feature offer__feature--bedrooms">
-              {offer.bedrooms} Bedrooms
+              {offer.bedrooms} {plural(offer.bedrooms, 'Bedroom')}
             </li>
             <li className="offer__feature offer__feature--adults">
-              Max {offer.maxAdults} adults
+              Max {offer.maxAdults} {plural(offer.maxAdults, 'adult')}
             </li>
           </ul>
           <div className="offer__price">
@@ -77,13 +83,13 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
           <div className="offer__host">
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
-              <div className={`offer__avatar-wrapper ${offer.user.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                <img className="offer__avatar user__avatar" src={offer.user.avatarUrl} width="74" height="74" alt="Host avatar"/>
+              <div className={`offer__avatar-wrapper ${offer.host.isPro ? 'offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                <img className="offer__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
               </div>
               <span className="offer__user-name">
-                {offer.user.name}
+                {offer.host.name}
               </span>
-              {offer.user.isPro && (
+              {offer.host.isPro && (
                 <span className="offer__user-status">
                   Pro
                 </span>
@@ -96,8 +102,8 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
             </div>
           </div>
           <section className="offer__reviews reviews">
-            <OfferPageReviewsList reviews={reviews} />
-            <OfferPageForm/>
+            {isReviews && <OfferPageReviewsList reviews={reviews}/>}
+            {isAuth && <OfferPageForm offerId={offer.id}/>}
           </section>
         </div>
       </div>
