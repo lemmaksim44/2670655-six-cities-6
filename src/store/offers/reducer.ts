@@ -29,10 +29,7 @@ export const offersReducer = createReducer(initialState, (builder) => {
       state.isOffersLoading = true;
     })
     .addCase(fetchOffers.fulfilled, (state, action) => {
-      const newOffers = action.payload;
-      if (JSON.stringify(state.offers) !== JSON.stringify(newOffers)) {
-        state.offers = newOffers;
-      }
+      state.offers = action.payload;
       state.isOffersLoading = false;
     })
     .addCase(fetchOffers.rejected, (state) => {

@@ -1,15 +1,17 @@
 import { Link, Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, City } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatchType } from '../../store';
+import { AppDispatchType } from '../../store';
 import Message from '../../components/message/message';
 import LoginForm from './login-form';
 import { setCity } from '../../store/offers/action';
+import { selectIsError } from '../../store/error/selectors';
+import { selectAuthorizationStatus } from '../../store/user/selectors';
 
 function LoginPage() {
   const dispatch: AppDispatchType = useDispatch();
-  const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
-  const isError = useSelector((state: RootState) => state.error.serverError !== null);
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const isError = useSelector(selectIsError);
 
   const cities: City[] = Object.values(City);
   const randomCity = cities[Math.floor(Math.random() * cities.length)];

@@ -6,18 +6,15 @@ import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
 import Map from '../../components/map/map';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { AuthorizationStatus } from '../../const';
+import { selectIsAuth } from '../../store/user/selectors';
 
 type OfferPageDetailsProps = {
   offer: OfferType;
   offersNearby: OfferPreviewType[];
-  reviews: ReviewType[];
 }
 
-function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps) {
-  const isAuth = useSelector((state: RootState) => state.user.authorizationStatus === AuthorizationStatus.Auth);
-  const isReviews = Array.isArray(reviews);
+function OfferPageDetails({offer, offersNearby}: OfferPageDetailsProps) {
+  const isAuth = useSelector(selectIsAuth);
 
   return (
     <section className="offer">
@@ -102,7 +99,7 @@ function OfferPageDetails({offer, offersNearby, reviews}: OfferPageDetailsProps)
             </div>
           </div>
           <section className="offer__reviews reviews">
-            {isReviews && <OfferPageReviewsList reviews={reviews}/>}
+            <OfferPageReviewsList/>
             {isAuth && <OfferPageForm offerId={offer.id}/>}
           </section>
         </div>

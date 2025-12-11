@@ -4,6 +4,7 @@ import { City } from '../../const';
 import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { setServerError } from '../error/action';
+import { tokenService } from '../../services/token';
 
 export const setCity = createAction<City>('city/setCity');
 
@@ -11,13 +12,10 @@ export const fetchOffers = createAsyncThunk<OfferPreviewType[], undefined, { ext
   'offers/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
     try {
-      const token = localStorage.getItem('six-cities-token');
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers['X-Token'] = token;
-      }
+      const { data } = await api.get<OfferPreviewType[]>('/offers', {
+        headers: tokenService.getAuthHeaders(),
+      });
 
-      const { data } = await api.get<OfferPreviewType[]>('/offers', { headers });
       dispatch(setServerError(null));
       return data;
     } catch (err) {
@@ -36,13 +34,10 @@ export const fetchOfferById = createAsyncThunk<OfferType | null, string, { extra
   'offer/fetchOfferById',
   async (offerId, { dispatch, extra: api }) => {
     try {
-      const token = localStorage.getItem('six-cities-token');
-      const headers: Record<string, string> = {};
-      if (token) {
-        headers['X-Token'] = token;
-      }
+      const { data } = await api.get<OfferType>(`/offers/${offerId}`, {
+        headers: tokenService.getAuthHeaders(),
+      });
 
-      const { data } = await api.get<OfferType>(`/offers/${offerId}`, { headers });
       dispatch(setServerError(null));
       return data;
     } catch (err) {
@@ -59,20 +54,14 @@ export const fetchOfferById = createAsyncThunk<OfferType | null, string, { extra
   }
 );
 
-export const fetchNearbyOffers = createAsyncThunk<OfferType[], string, { extra: AxiosInstance }>(
+export const fetchNearbyOffers = createAsyncThunk<OfferPreviewType[], string, { extra: AxiosInstance }>(
   'offer/fetchNearbyOffers',
   async (offerId, { dispatch, extra: api }) => {
     try {
-      const token = localStorage.getItem('six-cities-token');
-      const headers: Record<string, string> = {};
-
-      if (token) {
-        headers['X-Token'] = token;
-      }
-
       const { data } = await api.get<OfferType[]>(`/offers/${offerId}/nearby`, {
-        headers,
+        headers: tokenService.getAuthHeaders(),
       });
+
 
       dispatch(setServerError(null));
       return data;

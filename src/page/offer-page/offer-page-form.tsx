@@ -1,9 +1,10 @@
 import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ratings } from './const';
-import { AppDispatchType, RootState } from '../../store';
+import { AppDispatchType } from '../../store';
 import { sendReview } from '../../store/reviews/action';
 import { fetchReviewsByOfferId } from '../../store/reviews/action';
+import { selectIsSendingReview } from '../../store/reviews/selectors';
 
 type OfferPageFormProps = {
   offerId: string;
@@ -11,7 +12,7 @@ type OfferPageFormProps = {
 
 function OfferPageForm({ offerId }: OfferPageFormProps) {
   const dispatch: AppDispatchType = useDispatch();
-  const isSending = useSelector((state: RootState) => state.reviews.isSending);
+  const isSending = useSelector(selectIsSendingReview);
 
   const [formData, setFormData] = useState({
     rating: '',

@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatchType, RootState } from '../../store';
-import { AuthorizationStatus } from '../../const';
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { fetchLogout } from '../../store/user/action';
 import Message from '../message/message';
+import { selectIsError } from '../../store/error/selectors';
+import { selectUserInfo, selectIsAuth } from '../../store/user/selectors';
 
 function Header() {
-  const authorizationStatus = useSelector((state: RootState) => state.user.authorizationStatus);
-  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-  const user = useSelector((state: RootState) => state.user.userInfo);
-  const isError = useSelector((state: RootState) => state.error.serverError !== null);
+  const isAuth = useSelector(selectIsAuth);
+  const user = useSelector(selectUserInfo);
+  const isError = useSelector(selectIsError);
   const dispatch = useDispatch<AppDispatchType>();
 
   const handleLogout = () => {
