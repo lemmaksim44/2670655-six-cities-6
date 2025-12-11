@@ -2,7 +2,7 @@ import MainPageCitiesList from './main-page-cities-list';
 import MainPageCities from './main-page-cities';
 import Header from '../../components/header/header';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatchType } from '../../store';
+import { AppDispatchType } from '../../store';
 import { fetchOffers } from '../../store/offers/action';
 import { useEffect } from 'react';
 import MainPageEmpty from './main-page-empty';
