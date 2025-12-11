@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatchType, RootState } from '../../store';
+import { AppDispatchType } from '../../store';
 import { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
