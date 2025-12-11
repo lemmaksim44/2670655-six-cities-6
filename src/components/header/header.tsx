@@ -1,18 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatchType, RootState } from '../../store';
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { fetchLogout } from '../../store/user/action';
 import Message from '../message/message';
 import { selectIsError } from '../../store/error/selectors';
 import { selectUserInfo, selectIsAuth } from '../../store/user/selectors';
+import { selectFavoritesCount, selectIsFavorites } from '../../store/favorite/selector';
+import { fetchFavorites } from '../../store/favorite/action';
 
 function Header() {
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUserInfo);
   const isError = useSelector(selectIsError);
+  const isFavorite = useSelector(selectIsFavorites);
+  const favoritesCount = useSelector(selectFavoritesCount);
   const dispatch = useDispatch<AppDispatchType>();
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, isAuth]);
 
   const handleLogout = () => {
     dispatch(fetchLogout());
@@ -37,7 +47,7 @@ function Header() {
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
                         <span className="header__user-name user__name">{user?.email}</span>
-                        <span className="header__favorite-count">3</span>
+                        {isFavorite && <span className="header__favorite-count">{favoritesCount}</span>}
                       </Link>
                     </li>
                     <li className="header__nav-item">

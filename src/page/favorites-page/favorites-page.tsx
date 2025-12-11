@@ -1,32 +1,13 @@
-import { OfferPreviewType } from '../../types/offer-preview';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FavoritesPageEmpty from './favorites-page-empty';
 import FavoritesPageList from './favorites-page-list';
+import { useSelector } from 'react-redux';
+import { selectIsFavorites, selectGroupedFavorites } from '../../store/favorite/selector';
 
-type FavoritesPageProps = {
-  offers: OfferPreviewType[];
-}
-
-function getGroupCitiesOffer(offers: OfferPreviewType[]) {
-  const groupCityOffers: Record<string, OfferPreviewType[]> = {};
-
-  for (let i = 0; i < offers.length; i++) {
-    const city = offers[i].city.name;
-
-    if (!groupCityOffers[city]) {
-      groupCityOffers[city] = [];
-    }
-
-    groupCityOffers[city].push(offers[i]);
-  }
-
-  return groupCityOffers;
-}
-
-function FavoritesPage({offers}: FavoritesPageProps) {
-  const hasOffers = offers.length !== 0;
-  const groupCitiesOffer = getGroupCitiesOffer(offers);
+function FavoritesPage() {
+  const hasOffers = useSelector(selectIsFavorites)
+  const groupCitiesOffer = useSelector(selectGroupedFavorites);
 
   return (
     <div className="page">
