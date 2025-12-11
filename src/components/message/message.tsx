@@ -10,11 +10,18 @@ function Message() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    let isMounted = true;
+
     const timer = setTimeout(() => {
-      dispatch(setServerError(null));
+      if (isMounted) {
+        dispatch(setServerError(null));
+      }
     }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      isMounted = false;
+      clearTimeout(timer);
+    };
   }, [dispatch]);
 
   return(

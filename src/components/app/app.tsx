@@ -17,7 +17,15 @@ function App() {
   const dispatch = useDispatch<AppDispatchType>();
 
   useEffect(() => {
-    dispatch(fetchCheckAuth());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchCheckAuth());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   return (

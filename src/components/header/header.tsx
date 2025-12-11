@@ -20,9 +20,15 @@ function Header() {
   const dispatch = useDispatch<AppDispatchType>();
 
   useEffect(() => {
-    if (isAuth) {
+    let isMounted = true;
+
+    if (isAuth && isMounted) {
       dispatch(fetchFavorites());
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, isAuth]);
 
   const handleLogout = () => {

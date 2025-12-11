@@ -16,7 +16,15 @@ function MainPage() {
   const dispatch = useDispatch<AppDispatchType>();
 
   useEffect(() => {
-    dispatch(fetchOffers());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchOffers());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   const filteredOffers = useSelector(selectOffersByCity);

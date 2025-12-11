@@ -26,11 +26,17 @@ function OfferPage() {
   const offersNear = useSelector(selectOffersNearbyByOffer(offer, nearOffersLimit));
 
   useEffect(() => {
-    if (id) {
+    let isMounted = true;
+
+    if (id && isMounted) {
       dispatch(fetchOfferById(id));
       dispatch(fetchNearbyOffers(id));
       dispatch(fetchReviewsByOfferId(id));
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch, id]);
 
   return (

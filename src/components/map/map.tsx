@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 
 import { OfferPreviewType } from '../../types/offer-preview';
 import useMap from '../../hooks/useMap';
-import { defaultCustomIcon, currentCustomIcon } from './const';
+import { DEFAULT_CUSTOM_ICON, CURRENT_CUSTOM_ICON } from './const';
 import './map.css';
 
 
@@ -42,7 +42,7 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
             lng: offer.location.longitude,
           },
           {
-            icon: offer.id === selectedOfferId || offer.id === currentOffer?.id ? currentCustomIcon : defaultCustomIcon,
+            icon: offer.id === selectedOfferId || offer.id === currentOffer?.id ? CURRENT_CUSTOM_ICON : DEFAULT_CUSTOM_ICON,
           }
         );
         marker.addTo(markerGroup);

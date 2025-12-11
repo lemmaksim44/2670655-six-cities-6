@@ -10,7 +10,7 @@ function OfferPageReviewsList() {
   const sortedReviews = useSelector(selectReviewsSortedByDate(maxReviewsOnPage));
 
   if (reviewCount === 0) {
-    return;
+    return null;
   }
 
   return(
