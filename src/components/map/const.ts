@@ -1,4 +1,5 @@
 import leaflet from 'leaflet';
+
 import pin from '/img/pin.svg';
 import pinActive from '/img/pin-active.svg';
 

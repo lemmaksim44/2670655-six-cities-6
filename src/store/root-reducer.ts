@@ -1,4 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
+
 import { userReducer } from './user/reducer';
 import { offersReducer } from './offers/reducer';
 import { favoritesReducer } from './favorite/reducer';

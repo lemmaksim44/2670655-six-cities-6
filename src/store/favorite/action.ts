@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosError } from 'axios';
+
 import { OfferPreviewType } from '../../types/offer-preview';
 import { setServerError } from '../error/action';
 import { tokenService } from '../../services/token';

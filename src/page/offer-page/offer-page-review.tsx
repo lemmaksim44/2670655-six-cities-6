@@ -1,6 +1,5 @@
 import { ReviewType } from '../../types/review';
-import { formatDate } from '../../utils/scripts';
-import { getRating } from '../../utils/scripts';
+import { formatDate, getRating } from '../../utils/scripts';
 
 type OfferPageReviewProps = {
   review: ReviewType;

@@ -1,10 +1,10 @@
 import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ratings } from './const';
 import { AppDispatchType } from '../../store';
-import { sendReview } from '../../store/reviews/action';
-import { fetchReviewsByOfferId } from '../../store/reviews/action';
+
+import { sendReview, fetchReviewsByOfferId } from '../../store/reviews/action';
 import { selectIsSendingReview } from '../../store/reviews/selectors';
+import { ratings } from './const';
 
 type OfferPageFormProps = {
   offerId: string;

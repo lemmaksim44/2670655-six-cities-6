@@ -1,13 +1,14 @@
+import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { AppRoute, City } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { AppRoute, City } from '../../const';
 import { AppDispatchType } from '../../store';
-import Message from '../../components/message/message';
-import LoginForm from './login-form';
 import { setCity } from '../../store/offers/action';
 import { selectIsError } from '../../store/error/selectors';
 import { selectIsAuth } from '../../store/user/selectors';
-import { useState } from 'react';
+import Message from '../../components/message/message';
+import LoginForm from './login-form';
 
 function LoginPage() {
   const dispatch: AppDispatchType = useDispatch();

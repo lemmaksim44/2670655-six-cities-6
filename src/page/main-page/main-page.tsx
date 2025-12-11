@@ -1,14 +1,16 @@
-import MainPageCitiesList from './main-page-cities-list';
-import MainPageCities from './main-page-cities';
-import Header from '../../components/header/header';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
+import Header from '../../components/header/header';
+import Spinner from '../../components/spinner/spinner';
+
 import { AppDispatchType } from '../../store';
 import { fetchOffers } from '../../store/offers/action';
-import { useEffect } from 'react';
-import MainPageEmpty from './main-page-empty';
-import Spinner from '../../components/spinner/spinner';
 import { selectOffersByCity, selectIsOffersLoading } from '../../store/offers/selectors';
 
+import MainPageCitiesList from './main-page-cities-list';
+import MainPageCities from './main-page-cities';
+import MainPageEmpty from './main-page-empty';
 
 function MainPage() {
   const dispatch = useDispatch<AppDispatchType>();

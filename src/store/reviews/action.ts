@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ReviewType } from '../../types/review';
 import { AxiosInstance, AxiosError } from 'axios';
-import { setServerError } from '../error/action';
+
+import { ReviewType } from '../../types/review';
 import { SendReviewType } from '../../types/send-review';
+import { setServerError } from '../error/action';
 import { tokenService } from '../../services/token';
 
 export const fetchReviewsByOfferId = createAsyncThunk<

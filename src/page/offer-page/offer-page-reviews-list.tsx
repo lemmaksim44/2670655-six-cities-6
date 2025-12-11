@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
-import OfferPageReview from './offer-page-review';
 import { useSelector } from 'react-redux';
+import OfferPageReview from './offer-page-review';
 import { selectReviewsCount, selectReviewsSortedByDate } from '../../store/reviews/selectors';
 
 function OfferPageReviewsList() {

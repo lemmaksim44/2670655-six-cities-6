@@ -1,5 +1,6 @@
-import { RootState } from '..';
 import { createSelector } from '@reduxjs/toolkit';
+
+import { RootState } from '..';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { City } from '../../const';
 

@@ -1,15 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatchType } from '../../store';
+import { AppRoute } from '../../const';
+
 import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';
+
 import { capitalize, getRating, plural } from '../../utils/scripts';
+
+import Map from '../../components/map/map';
 import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
-import Map from '../../components/map/map';
-import { useSelector } from 'react-redux';
 import { selectIsAuth } from '../../store/user/selectors';
-import { useDispatch } from 'react-redux';
-import { AppDispatchType } from '../../store';
-import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import { changeFavoriteStatus } from '../../store/favorite/action';
 
 type OfferPageDetailsProps = {

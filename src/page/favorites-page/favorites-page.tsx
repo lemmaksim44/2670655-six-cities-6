@@ -1,10 +1,11 @@
+import { useSelector } from 'react-redux';
+
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import Spinner from '../../components/spinner/spinner';
 import FavoritesPageEmpty from './favorites-page-empty';
 import FavoritesPageList from './favorites-page-list';
-import { useSelector } from 'react-redux';
 import { selectIsFavorites, selectGroupedFavorites, selectFavoritesLoadingStatus } from '../../store/favorite/selector';
-import Spinner from '../../components/spinner/spinner';
 
 function FavoritesPage() {
   const hasOffers = useSelector(selectIsFavorites);

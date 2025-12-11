@@ -1,14 +1,17 @@
+import { Fragment, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+import Spinner from '../../components/spinner/spinner';
+
 import OfferPageDetails from './offer-page-details';
 import OfferNearList from './offer-near-list';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatchType } from '../../store';
-import { Fragment, useEffect } from 'react';
-import { fetchOfferById, fetchNearbyOffers } from '../../store/offers/action';
-import Spinner from '../../components/spinner/spinner';
 import Page404 from '../page-404/page-404';
-import Footer from '../../components/footer/footer';
+
+import { AppDispatchType } from '../../store';
+import { fetchOfferById, fetchNearbyOffers } from '../../store/offers/action';
 import { fetchReviewsByOfferId } from '../../store/reviews/action';
 import { selectOffer, selectIsOfferLoading, selectOffersNearbyByOffer } from '../../store/offers/selectors';
 

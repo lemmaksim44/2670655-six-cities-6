@@ -1,8 +1,9 @@
 import { useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchLogin } from '../../store/user/action';
-import { AppDispatchType, RootState } from '../../store';
 import { setServerError } from '../../store/error/action';
+import { AppDispatchType, RootState } from '../../store';
 
 function LoginForm() {
   const dispatch = useDispatch<AppDispatchType>();

@@ -1,14 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatchType } from '../../store';
 import { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+import { AppDispatchType } from '../../store';
 import { AppRoute } from '../../const';
 import { fetchLogout } from '../../store/user/action';
+import { fetchFavorites } from '../../store/favorite/action';
 import Message from '../message/message';
 import { selectIsError } from '../../store/error/selectors';
 import { selectUserInfo, selectIsAuth } from '../../store/user/selectors';
 import { selectFavoritesCount, selectIsFavorites } from '../../store/favorite/selector';
-import { fetchFavorites } from '../../store/favorite/action';
 
 function Header() {
   const isAuth = useSelector(selectIsAuth);

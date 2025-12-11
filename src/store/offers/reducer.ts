@@ -1,7 +1,8 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+
+import { City } from '../../const';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { OfferType } from '../../types/offer';
-import { City } from '../../const';
 import { setCity, fetchOffers, fetchOfferById, fetchNearbyOffers } from './action';
 import { changeFavoriteStatus } from '../favorite/action';
 import { fetchLogout } from '../user/action';

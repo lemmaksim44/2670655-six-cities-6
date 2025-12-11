@@ -1,5 +1,5 @@
-import { OfferPreviewType } from '../../types/offer-preview';
 import FavoritesPageCities from './favorites-page-cities';
+import { OfferPreviewType } from '../../types/offer-preview';
 
 type FavoritesPageListProps = {
   offers: Record<string, OfferPreviewType[]>;

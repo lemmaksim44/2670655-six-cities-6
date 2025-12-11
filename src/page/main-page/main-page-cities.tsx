@@ -1,13 +1,14 @@
-import Card from '../../components/card/card';
-import { OfferPreviewType } from '../../types/offer-preview';
 import { useState, useCallback } from 'react';
-import Map from '../../components/map/map';
-import { plural } from '../../utils/scripts';
 import { useSelector } from 'react-redux';
-import MainPageCitiesFilter from './main-page-cities-filter';
-import { SortingOptions } from '../../const';
-import { selectCity, selectSortedOffers } from '../../store/offers/selectors';
 
+import Card from '../../components/card/card';
+import Map from '../../components/map/map';
+import MainPageCitiesFilter from './main-page-cities-filter';
+
+import { OfferPreviewType } from '../../types/offer-preview';
+import { SortingOptions } from '../../const';
+import { plural } from '../../utils/scripts';
+import { selectCity, selectSortedOffers } from '../../store/offers/selectors';
 
 function MainPageCities() {
   const [hoveredCardId, setHoveredCardId] = useState<OfferPreviewType['id'] | null>(null);

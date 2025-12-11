@@ -1,5 +1,6 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosError } from 'axios';
+
 import { City } from '../../const';
 import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';

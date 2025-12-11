@@ -1,6 +1,5 @@
-// src/store/favorite/reducer.ts
-
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+
 import { OfferPreviewType } from '../../types/offer-preview';
 import { fetchFavorites, changeFavoriteStatus } from './action';
 

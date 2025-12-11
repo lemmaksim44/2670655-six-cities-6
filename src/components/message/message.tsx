@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { setServerError } from '../../store/error/action';
 import { selectServerError } from '../../store/error/selectors';
 import style from './message.module.css';

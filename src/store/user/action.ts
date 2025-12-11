@@ -1,8 +1,9 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserAuthType } from '../../types/user-auth';
+import { AxiosInstance, AxiosError } from 'axios';
+
 import { AuthorizationStatus } from '../../const';
 import { LoginData } from '../../types/login';
-import { AxiosInstance, AxiosError } from 'axios';
+import { UserAuthType } from '../../types/user-auth';
 import { setServerError } from '../error/action';
 import { tokenService } from '../../services/token';
 

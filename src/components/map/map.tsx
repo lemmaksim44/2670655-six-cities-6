@@ -1,10 +1,12 @@
 import { useRef, useEffect } from 'react';
-import { OfferPreviewType } from '../../types/offer-preview';
-import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+import { OfferPreviewType } from '../../types/offer-preview';
+import useMap from '../../hooks/useMap';
 import { defaultCustomIcon, currentCustomIcon } from './const';
 import './map.css';
+
 
 type MapProps = {
   offers: OfferPreviewType[];

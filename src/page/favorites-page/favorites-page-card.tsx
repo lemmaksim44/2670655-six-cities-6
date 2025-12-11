@@ -1,12 +1,13 @@
-import { OfferPreviewType } from '../../types/offer-preview';
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { capitalize, getRating } from '../../utils/scripts';
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { AppDispatchType } from '../../store';
 import { changeFavoriteStatus } from '../../store/favorite/action';
 import { selectIsAuth } from '../../store/user/selectors';
+import { AppRoute } from '../../const';
+import { capitalize, getRating } from '../../utils/scripts';
+import { OfferPreviewType } from '../../types/offer-preview';
 
 type FavoritesPageCardProps = {
   offer: OfferPreviewType;

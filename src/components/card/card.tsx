@@ -1,10 +1,11 @@
-import { OfferPreviewType } from '../../types/offer-preview';
-import { Link, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { capitalize, getRating } from '../../utils/scripts';
 import { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { AppRoute } from '../../const';
 import { AppDispatchType } from '../../store';
-import { useSelector, useDispatch } from 'react-redux';
+import { OfferPreviewType } from '../../types/offer-preview';
+import { capitalize, getRating } from '../../utils/scripts';
 import { changeFavoriteStatus } from '../../store/favorite/action';
 import { selectIsAuth } from '../../store/user/selectors';
 
