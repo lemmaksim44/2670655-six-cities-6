@@ -14,7 +14,7 @@ type CardProps = {
   onMouseHover?: (id: OfferPreviewType['id'] | null) => void;
 }
 
-function Card({ offer, block, onMouseHover }: CardProps) {
+function CardComponent({ offer, block, onMouseHover }: CardProps) {
   const { isPremium, id, previewImage, title, price, rating, type, isFavorite } = offer;
 
   const dispatch = useDispatch<AppDispatchType>();
@@ -95,4 +95,6 @@ function Card({ offer, block, onMouseHover }: CardProps) {
   );
 }
 
-export default memo(Card);
+const Card = memo(CardComponent);
+
+export default Card;

@@ -15,20 +15,19 @@ export const selectOffersNearby = (state: RootState) => state.offers.offersNearb
 export const selectOffersByCity = createSelector(
   selectOffers,
   selectCity,
-  (offers, city) => offers.filter(offer => offer.city.name === city)
+  (offers, city) => offers.filter((offer) => offer.city.name === city.toString())
 );
 
 export const selectSortedOffers = (sortOption: SortingOptions) =>
   createSelector(
     selectOffersByCity,
     (offers) => sortOffers(offers, sortOption)
-);
+  );
 
 export const selectOffersNearbyByOffer = (offer: OfferType | null, limit: number = 3) =>
-  createSelector(
-    selectOffersNearby,
-    (offers) => {
-      if (!offer) return [];
-      return sortByNearestOffers(offers, offer).slice(0, limit);
+  createSelector(selectOffersNearby, (offers) => {
+    if (!offer) {
+      return [];
     }
-);
+    return sortByNearestOffers(offers, offer).slice(0, limit);
+  });

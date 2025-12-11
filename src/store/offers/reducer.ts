@@ -59,7 +59,9 @@ export const offersReducer = createReducer(initialState, (builder) => {
       state.offersNearby = [];
     })
     .addCase(changeFavoriteStatus.fulfilled, (state, action: PayloadAction<OfferPreviewType | null>) => {
-      if (!action.payload) return;
+      if (!action.payload) {
+        return;
+      }
 
       const updatedOffer = action.payload;
 

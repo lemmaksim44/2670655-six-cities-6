@@ -13,7 +13,7 @@ export const fetchReviewsByOfferId = createAsyncThunk<
   'reviews/fetchReviewsByOfferId',
   async (offerId, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get(`/comments/${offerId}`, {
+      const { data } = await api.get<ReviewType[]>(`/comments/${offerId}`, {
         headers: tokenService.getAuthHeaders(),
       });
 

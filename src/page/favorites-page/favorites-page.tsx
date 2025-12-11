@@ -7,7 +7,7 @@ import { selectIsFavorites, selectGroupedFavorites, selectFavoritesLoadingStatus
 import Spinner from '../../components/spinner/spinner';
 
 function FavoritesPage() {
-  const hasOffers = useSelector(selectIsFavorites)
+  const hasOffers = useSelector(selectIsFavorites);
   const groupCitiesOffer = useSelector(selectGroupedFavorites);
   const isLoading = useSelector(selectFavoritesLoadingStatus);
 

@@ -10,9 +10,9 @@ import { selectIsAuth } from '../../store/user/selectors';
 
 type FavoritesPageCardProps = {
   offer: OfferPreviewType;
-}
+};
 
-function FavoritesPageCard({ offer }: FavoritesPageCardProps) {
+function FavoritesPageCardComponent({ offer }: FavoritesPageCardProps) {
   const { isPremium, id, previewImage, title, price, rating, type, isFavorite } = offer;
 
   const dispatch = useDispatch<AppDispatchType>();
@@ -77,4 +77,6 @@ function FavoritesPageCard({ offer }: FavoritesPageCardProps) {
   );
 }
 
-export default memo(FavoritesPageCard);
+const FavoritesPageCard = memo(FavoritesPageCardComponent);
+
+export default FavoritesPageCard;

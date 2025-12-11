@@ -7,7 +7,7 @@ function OfferPageReviewsList() {
   const reviewCount = useSelector(selectReviewsCount);
 
   const maxReviewsOnPage = 10;
-  const sortedReviews = useSelector(selectReviewsSortedByDate(maxReviewsOnPage))
+  const sortedReviews = useSelector(selectReviewsSortedByDate(maxReviewsOnPage));
 
   if (reviewCount === 0) {
     return;
