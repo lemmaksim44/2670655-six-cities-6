@@ -1,10 +1,12 @@
 import { useRef, useEffect } from 'react';
-import { OfferPreviewType } from '../../types/offer-preview';
-import useMap from '../../hooks/useMap';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { defaultCustomIcon, currentCustomIcon } from './const';
+
+import { OfferPreviewType } from '../../types/offer-preview';
+import useMap from '../../hooks/useMap';
+import { DEFAULT_CUSTOM_ICON, CURRENT_CUSTOM_ICON } from './const';
 import './map.css';
+
 
 type MapProps = {
   offers: OfferPreviewType[];
@@ -40,7 +42,7 @@ function Map({offers, block, selectedOfferId, currentOffer}: MapProps) {
             lng: offer.location.longitude,
           },
           {
-            icon: offer.id === selectedOfferId || offer.id === currentOffer?.id ? currentCustomIcon : defaultCustomIcon,
+            icon: offer.id === selectedOfferId || offer.id === currentOffer?.id ? CURRENT_CUSTOM_ICON : DEFAULT_CUSTOM_ICON,
           }
         );
         marker.addTo(markerGroup);

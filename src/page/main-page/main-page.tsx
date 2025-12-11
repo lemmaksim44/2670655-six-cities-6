@@ -1,20 +1,30 @@
-import MainPageCitiesList from './main-page-cities-list';
-import MainPageCities from './main-page-cities';
-import Header from '../../components/header/header';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatchType } from '../../store';
-import { fetchOffers } from '../../store/offers/action';
 import { useEffect } from 'react';
-import MainPageEmpty from './main-page-empty';
+import { useSelector, useDispatch } from 'react-redux';
+
+import Header from '../../components/header/header';
 import Spinner from '../../components/spinner/spinner';
+
+import { AppDispatchType } from '../../store';
+import { fetchOffers } from '../../store/offers/action';
 import { selectOffersByCity, selectIsOffersLoading } from '../../store/offers/selectors';
 
+import MainPageCitiesList from './main-page-cities-list';
+import MainPageCities from './main-page-cities';
+import MainPageEmpty from './main-page-empty';
 
 function MainPage() {
   const dispatch = useDispatch<AppDispatchType>();
 
   useEffect(() => {
-    dispatch(fetchOffers());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchOffers());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   const filteredOffers = useSelector(selectOffersByCity);

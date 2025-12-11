@@ -1,4 +1,10 @@
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { OfferPreviewType } from '../../types/offer-preview';
+import { AppDispatchType } from '../../store';
+import { City } from '../../const';
+import { AppRoute } from '../../const';
+import { setCity } from '../../store/offers/action';
 import FavoritesPageCard from './favorites-page-card';
 
 type FavoritesPageCities = {
@@ -7,13 +13,15 @@ type FavoritesPageCities = {
 }
 
 function FavoritesPageCities({city, offers}: FavoritesPageCities) {
+  const dispatch = useDispatch<AppDispatchType>();
+
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
+          <Link className="locations__item-link" to={AppRoute.Main} onClick={() => dispatch(setCity(city as City))}>
             <span>{city}</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="favorites__places">

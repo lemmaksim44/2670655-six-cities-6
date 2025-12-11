@@ -1,7 +1,15 @@
-export const ratings = [
-  { value: 5, title: 'perfect' },
-  { value: 4, title: 'good' },
-  { value: 3, title: 'not bad' },
-  { value: 2, title: 'badly' },
-  { value: 1, title: 'terribly' },
-];
+export const enum RatingValue {
+  Perfect = 5,
+  Good = 4,
+  NotBad = 3,
+  Badly = 2,
+  Terribly = 1,
+}
+
+export const RATINGS = [
+  { value: RatingValue.Perfect, title: 'Perfect' },
+  { value: RatingValue.Good, title: 'Good' },
+  { value: RatingValue.NotBad, title: 'Not Bad' },
+  { value: RatingValue.Badly, title: 'Badly' },
+  { value: RatingValue.Terribly, title: 'Terribly' },
+] as const;

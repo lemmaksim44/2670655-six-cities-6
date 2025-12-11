@@ -1,7 +1,9 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import { Link } from 'react-router-dom';
+
+import { AppRoute } from '../../const';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+
 import styles from './page-404.module.css';
 import gif404 from './404_2.gif';
 

@@ -1,22 +1,24 @@
+import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, City } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { AppRoute, City } from '../../const';
 import { AppDispatchType } from '../../store';
-import Message from '../../components/message/message';
-import LoginForm from './login-form';
 import { setCity } from '../../store/offers/action';
 import { selectIsError } from '../../store/error/selectors';
-import { selectAuthorizationStatus } from '../../store/user/selectors';
+import { selectIsAuth } from '../../store/user/selectors';
+import Message from '../../components/message/message';
+import LoginForm from './login-form';
 
 function LoginPage() {
   const dispatch: AppDispatchType = useDispatch();
-  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const isAuth = useSelector(selectIsAuth);
   const isError = useSelector(selectIsError);
 
   const cities: City[] = Object.values(City);
-  const randomCity = cities[Math.floor(Math.random() * cities.length)];
+  const [randomCity] = useState(() => cities[Math.floor(Math.random() * cities.length)]);
 
-  if (authorizationStatus === AuthorizationStatus.Auth) {
+  if (isAuth) {
     return <Navigate to={AppRoute.Main} />;
   }
 
@@ -24,6 +26,7 @@ function LoginPage() {
     <div className="page page--gray page--login">
       <header className="header">
         <div className="container">
+          {isError && <Message />}
           <div className="header__wrapper">
             <div className="header__left">
               <Link className="header__logo-link" to={AppRoute.Main}>
@@ -35,8 +38,6 @@ function LoginPage() {
       </header>
 
       <main className="page__main page__main--login">
-        {isError && <Message />}
-
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>

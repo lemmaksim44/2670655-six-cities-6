@@ -1,12 +1,11 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserAuthType } from '../../types/user-auth';
+import { AxiosInstance, AxiosError } from 'axios';
+
 import { AuthorizationStatus } from '../../const';
 import { LoginData } from '../../types/login';
-import { AxiosInstance, AxiosError } from 'axios';
+import { UserAuthType } from '../../types/user-auth';
 import { setServerError } from '../error/action';
 import { tokenService } from '../../services/token';
-
-const nameToken = 'six-cities-token';
 
 export const setUserInfo = createAction<UserAuthType | null>('user/setUserInfo');
 
@@ -17,13 +16,6 @@ export const logoutUser = createAction('user/logout');
 export const fetchCheckAuth = createAsyncThunk<void, undefined, { extra: AxiosInstance }>(
   'user/checkAuth',
   async (_arg, { dispatch, extra: api }) => {
-
-    const token = localStorage.getItem(nameToken);
-
-    if (!token) {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-      return;
-    }
 
     try {
       const headers = tokenService.getAuthHeaders();

@@ -1,8 +1,11 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+
+import { City } from '../../const';
 import { OfferPreviewType } from '../../types/offer-preview';
 import { OfferType } from '../../types/offer';
-import { City } from '../../const';
 import { setCity, fetchOffers, fetchOfferById, fetchNearbyOffers } from './action';
+import { changeFavoriteStatus } from '../favorite/action';
+import { fetchLogout } from '../user/action';
 
 const initialState: {
   city: City;
@@ -55,5 +58,31 @@ export const offersReducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchNearbyOffers.rejected, (state) => {
       state.offersNearby = [];
+    })
+    .addCase(changeFavoriteStatus.fulfilled, (state, action: PayloadAction<OfferPreviewType | null>) => {
+      if (!action.payload) {
+        return;
+      }
+
+      const updatedOffer = action.payload;
+
+      state.offers = state.offers.map((offer) =>
+        offer.id === updatedOffer.id ? { ...offer, isFavorite: updatedOffer.isFavorite } : offer
+      );
+
+      if (state.offer?.id === updatedOffer.id) {
+        state.offer = { ...state.offer, isFavorite: updatedOffer.isFavorite };
+      }
+
+      state.offersNearby = state.offersNearby.map((offer) =>
+        offer.id === updatedOffer.id ? { ...offer, isFavorite: updatedOffer.isFavorite } : offer
+      );
+    })
+    .addCase(fetchLogout.fulfilled, (state) => {
+      state.offers = state.offers.map((offer) => ({ ...offer, isFavorite: false }));
+      if (state.offer) {
+        state.offer = { ...state.offer, isFavorite: false };
+      }
+      state.offersNearby = state.offersNearby.map((offer) => ({ ...offer, isFavorite: false }));
     });
 });

@@ -1,14 +1,36 @@
-import { OfferPreviewType } from '../../types/offer-preview';
-import { Link } from 'react-router-dom';
+import { memo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { AppDispatchType } from '../../store';
+import { changeFavoriteStatus } from '../../store/favorite/action';
+import { selectIsAuth } from '../../store/user/selectors';
 import { AppRoute } from '../../const';
 import { capitalize, getRating } from '../../utils/scripts';
+import { OfferPreviewType } from '../../types/offer-preview';
 
 type FavoritesPageCardProps = {
   offer: OfferPreviewType;
-}
+};
 
-function FavoritesPageCard({offer}: FavoritesPageCardProps) {
-  const {isPremium, id, previewImage, title, price, rating, type} = offer;
+function FavoritesPageCardComponent({ offer }: FavoritesPageCardProps) {
+  const { isPremium, id, previewImage, title, price, rating, type, isFavorite } = offer;
+
+  const dispatch = useDispatch<AppDispatchType>();
+  const navigate = useNavigate();
+  const isAuth = useSelector(selectIsAuth);
+
+  const handleFavoriteClick = () => {
+    if (!isAuth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    dispatch(changeFavoriteStatus({
+      offerId: id,
+      status: isFavorite ? 0 : 1,
+    }));
+  };
 
   return (
     <article className="favorites__card place-card">
@@ -28,11 +50,17 @@ function FavoritesPageCard({offer}: FavoritesPageCardProps) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+            type="button"
+            onClick={handleFavoriteClick}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">In bookmarks</span>
+            <span className="visually-hidden">
+              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
+            </span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -49,5 +77,7 @@ function FavoritesPageCard({offer}: FavoritesPageCardProps) {
     </article>
   );
 }
+
+const FavoritesPageCard = memo(FavoritesPageCardComponent);
 
 export default FavoritesPageCard;

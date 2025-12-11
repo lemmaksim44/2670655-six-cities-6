@@ -1,16 +1,16 @@
 import { Fragment } from 'react';
-import OfferPageReview from './offer-page-review';
 import { useSelector } from 'react-redux';
+import OfferPageReview from './offer-page-review';
 import { selectReviewsCount, selectReviewsSortedByDate } from '../../store/reviews/selectors';
 
 function OfferPageReviewsList() {
   const reviewCount = useSelector(selectReviewsCount);
 
   const maxReviewsOnPage = 10;
-  const sortedReviews = useSelector(selectReviewsSortedByDate(maxReviewsOnPage))
+  const sortedReviews = useSelector(selectReviewsSortedByDate(maxReviewsOnPage));
 
   if (reviewCount === 0) {
-    return;
+    return null;
   }
 
   return(

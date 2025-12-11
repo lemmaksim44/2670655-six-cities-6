@@ -1,5 +1,5 @@
-import { RootState } from '..';
 import { createSelector } from 'reselect';
+import { RootState } from '..';
 
 export const selectReviews = (state: RootState) => state.reviews.reviews;
 export const selectIsSendingReview = (state: RootState) => state.reviews.isSending;

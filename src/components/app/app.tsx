@@ -1,5 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { AppRoute } from '../../const';
+import { AppDispatchType } from '../../store';
+import { fetchCheckAuth } from '../../store/user/action';
+
 import PrivateRoute from '../private-route/private-route';
 import MainPage from '../../page/main-page/main-page';
 import LoginPage from '../../page/login-page/login-page';
@@ -7,18 +13,19 @@ import FavoritesPage from '../../page/favorites-page/favorites-page';
 import OfferPage from '../../page/offer-page/offer-page';
 import Page404 from '../../page/page-404/page-404';
 
-import { OfferPreviewType } from '../../types/offer-preview';
-import { fetchCheckAuth } from '../../store/user/action';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatchType } from '../../store';
-
 function App() {
-  const offers: OfferPreviewType[] = [];
   const dispatch = useDispatch<AppDispatchType>();
 
   useEffect(() => {
-    dispatch(fetchCheckAuth());
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchCheckAuth());
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [dispatch]);
 
   return (
@@ -36,7 +43,7 @@ function App() {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute>
-              <FavoritesPage offers={offers}/>
+              <FavoritesPage/>
             </PrivateRoute>
           }
         />

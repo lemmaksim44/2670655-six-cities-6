@@ -1,6 +1,7 @@
-import {Navigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
 import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { selectAuthorizationStatus } from '../../store/user/selectors';
 
 type PrivateRouteProps = {

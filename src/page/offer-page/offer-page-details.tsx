@@ -1,12 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatchType } from '../../store';
+import { AppRoute } from '../../const';
+
 import { OfferType } from '../../types/offer';
 import { OfferPreviewType } from '../../types/offer-preview';
-import { ReviewType } from '../../types/review';
+
 import { capitalize, getRating, plural } from '../../utils/scripts';
+
+import Map from '../../components/map/map';
 import OfferPageReviewsList from './offer-page-reviews-list';
 import OfferPageForm from './offer-page-form';
-import Map from '../../components/map/map';
-import { useSelector } from 'react-redux';
 import { selectIsAuth } from '../../store/user/selectors';
+import { changeFavoriteStatus } from '../../store/favorite/action';
 
 type OfferPageDetailsProps = {
   offer: OfferType;
@@ -15,6 +21,20 @@ type OfferPageDetailsProps = {
 
 function OfferPageDetails({offer, offersNearby}: OfferPageDetailsProps) {
   const isAuth = useSelector(selectIsAuth);
+  const dispatch = useDispatch<AppDispatchType>();
+  const navigate = useNavigate();
+
+  const handleFavoriteClick = () => {
+    if (!isAuth) {
+      navigate(AppRoute.Login);
+      return;
+    }
+
+    dispatch(changeFavoriteStatus({
+      offerId: offer.id,
+      status: offer.isFavorite ? 0 : 1,
+    }));
+  };
 
   return (
     <section className="offer">
@@ -38,11 +58,17 @@ function OfferPageDetails({offer, offersNearby}: OfferPageDetailsProps) {
             <h1 className="offer__name">
               {offer.title}
             </h1>
-            <button className="offer__bookmark-button button" type="button">
+            <button
+              className={`offer__bookmark-button button ${offer.isFavorite ? 'offer__bookmark-button--active' : ''}`}
+              type="button"
+              onClick={handleFavoriteClick}
+            >
               <svg className="offer__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
-              <span className="visually-hidden">To bookmarks</span>
+              <span className="visually-hidden">
+                {offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}
+              </span>
             </button>
           </div>
           <div className="offer__rating rating">

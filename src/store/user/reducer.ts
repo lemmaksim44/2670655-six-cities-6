@@ -1,4 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import { AuthorizationStatus } from '../../const';
 import { UserAuthType } from '../../types/user-auth';
 import { setAuthorizationStatus, setUserInfo } from './action';

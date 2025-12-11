@@ -1,25 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosError } from 'axios';
 
-import { ReviewType } from '../../types/review';
-import { SendReviewType } from '../../types/send-review';
+import { OfferPreviewType } from '../../types/offer-preview';
 import { setServerError } from '../error/action';
 import { tokenService } from '../../services/token';
 
-export const fetchReviewsByOfferId = createAsyncThunk<
-  ReviewType[],
-  string,
+export const fetchFavorites = createAsyncThunk<
+  OfferPreviewType[],
+  undefined,
   { extra: AxiosInstance }
 >(
-  'reviews/fetchReviewsByOfferId',
-  async (offerId, { dispatch, extra: api }) => {
+  'favorite/fetchFavorites',
+  async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<ReviewType[]>(`/comments/${offerId}`, {
-        headers: tokenService.getAuthHeaders(),
-      });
+      const { data } = await api.get<OfferPreviewType[]>(
+        '/favorite',
+        { headers: tokenService.getAuthHeaders() }
+      );
 
       dispatch(setServerError(null));
       return data;
+
     } catch (err) {
       const error = err as AxiosError;
 
@@ -32,32 +33,31 @@ export const fetchReviewsByOfferId = createAsyncThunk<
   }
 );
 
-export const sendReview = createAsyncThunk<
-  ReviewType[],
-  SendReviewType,
+export const changeFavoriteStatus = createAsyncThunk<
+  OfferPreviewType | null,
+  { offerId: string; status: 0 | 1 },
   { extra: AxiosInstance }
 >(
-  'reviews/sendReview',
-  async ({ offerId, rating, comment }, { dispatch, extra: api }) => {
+  'favorite/changeStatus',
+  async ({ offerId, status }, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.post<ReviewType[]>(
-        `/comments/${offerId}`,
-        { comment, rating },
+      const { data } = await api.post<OfferPreviewType>(
+        `/favorite/${offerId}/${status}`,
+        {},
         { headers: tokenService.getAuthHeaders() }
       );
 
       dispatch(setServerError(null));
       return data;
+
     } catch (err) {
       const error = err as AxiosError;
 
       if (!error.response) {
         dispatch(setServerError('Сервер недоступен'));
-      } else {
-        dispatch(setServerError('Не удалось отправить отзыв'));
       }
 
-      return [];
+      return null;
     }
   }
 );
