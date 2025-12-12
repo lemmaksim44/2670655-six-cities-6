@@ -8,8 +8,12 @@ type PrivateRouteProps = {
   children: JSX.Element;
 }
 
-function PrivateRoute({children}: PrivateRouteProps) {
+function PrivateRoute({ children }: PrivateRouteProps) {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown) {
+    return null;
+  }
 
   return authorizationStatus === AuthorizationStatus.Auth
     ? children

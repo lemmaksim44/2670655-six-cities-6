@@ -31,14 +31,17 @@ function OfferPageForm({ offerId }: OfferPageFormProps) {
       return;
     }
 
-    await dispatch(sendReview({
-      offerId,
-      rating: Number(formData.rating),
-      comment: formData.review,
-    })).unwrap();
-
-    setFormData({ rating: '', review: '' });
-    dispatch(fetchReviewsByOfferId(offerId));
+    try {
+      await dispatch(sendReview({
+        offerId,
+        rating: Number(formData.rating),
+        comment: formData.review,
+      })).unwrap();
+      await dispatch(fetchReviewsByOfferId(offerId));
+      setFormData({ rating: '', review: '' });
+    } catch (_err) {
+      void 0;
+    }
   };
 
   const isSubmitDisabled =

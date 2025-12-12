@@ -28,20 +28,18 @@ function MainPageCitiesFilter({currentSortOption, onChangeSort}: MainPageCitiesF
         </svg>
       </span>
 
-      {isOpen && (
-        <ul className="places__options places__options--custom places__options--opened">
-          {Object.values(SortingOptions).map((option) => (
-            <li
-              key={option}
-              className={`places__option ${currentSortOption === option ? 'places__option--active' : ''}`}
-              tabIndex={0}
-              onClick={() => handleOptionClick(option)}
-            >
-              {option}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className={`places__options places__options--custom ${isOpen && 'places__options--opened'}`}>
+        {Object.values(SortingOptions).map((option) => (
+          <li
+            key={option}
+            className={`places__option ${currentSortOption === option ? 'places__option--active' : ''}`}
+            tabIndex={0}
+            onClick={() => handleOptionClick(option)}
+          >
+            {option}
+          </li>
+        ))}
+      </ul>
     </form>
   );
 }
