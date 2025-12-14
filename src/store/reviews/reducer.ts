@@ -23,7 +23,7 @@ export const reviewsReducer = createReducer(initialState, (builder) => {
       state.isSending = true;
     })
     .addCase(sendReview.fulfilled, (state, action) => {
-      state.reviews = action.payload;
+      state.reviews.unshift(action.payload);
       state.isSending = false;
     })
     .addCase(sendReview.rejected, (state) => {

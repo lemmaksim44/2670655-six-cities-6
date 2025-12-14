@@ -2,7 +2,7 @@ import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatchType } from '../../store';
 
-import { sendReview, fetchReviewsByOfferId } from '../../store/reviews/action';
+import { sendReview } from '../../store/reviews/action';
 import { selectIsSendingReview } from '../../store/reviews/selectors';
 import { RATINGS } from './const';
 
@@ -37,7 +37,6 @@ function OfferPageForm({ offerId }: OfferPageFormProps) {
         rating: Number(formData.rating),
         comment: formData.review,
       })).unwrap();
-      await dispatch(fetchReviewsByOfferId(offerId));
       setFormData({ rating: '', review: '' });
     } catch (_err) {
       void 0;
