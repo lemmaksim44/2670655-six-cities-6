@@ -13,13 +13,13 @@ function FavoritesPage() {
   const isLoading = useSelector(selectFavoritesLoadingStatus);
 
   return (
-    <div className="page">
+    <div className={`page ${!hasOffers && 'page--favorites-empty'}`}>
       <Header/>
 
       {isLoading ? (
         <Spinner/>
       ) : (
-        <main className={`page__main page__main--favorites ${hasOffers ? 'page__main--favorites-empty' : ''}`}>
+        <main className={`page__main page__main--favorites ${!hasOffers && 'page__main--favorites-empty'}`}>
           <div className="page__favorites-container container">
             {hasOffers ? <FavoritesPageList offers={groupCitiesOffer}/> : <FavoritesPageEmpty/>}
           </div>

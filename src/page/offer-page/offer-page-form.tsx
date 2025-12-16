@@ -2,7 +2,7 @@ import { useState, Fragment, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatchType } from '../../store';
 
-import { sendReview, fetchReviewsByOfferId } from '../../store/reviews/action';
+import { sendReview } from '../../store/reviews/action';
 import { selectIsSendingReview } from '../../store/reviews/selectors';
 import { RATINGS } from './const';
 
@@ -31,14 +31,16 @@ function OfferPageForm({ offerId }: OfferPageFormProps) {
       return;
     }
 
-    await dispatch(sendReview({
-      offerId,
-      rating: Number(formData.rating),
-      comment: formData.review,
-    })).unwrap();
-
-    setFormData({ rating: '', review: '' });
-    dispatch(fetchReviewsByOfferId(offerId));
+    try {
+      await dispatch(sendReview({
+        offerId,
+        rating: Number(formData.rating),
+        comment: formData.review,
+      })).unwrap();
+      setFormData({ rating: '', review: '' });
+    } catch (_err) {
+      void 0;
+    }
   };
 
   const isSubmitDisabled =

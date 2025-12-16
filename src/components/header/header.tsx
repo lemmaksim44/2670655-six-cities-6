@@ -9,13 +9,12 @@ import { fetchFavorites } from '../../store/favorite/action';
 import Message from '../message/message';
 import { selectIsError } from '../../store/error/selectors';
 import { selectUserInfo, selectIsAuth } from '../../store/user/selectors';
-import { selectFavoritesCount, selectIsFavorites } from '../../store/favorite/selector';
+import { selectFavoritesCount } from '../../store/favorite/selector';
 
 function Header() {
   const isAuth = useSelector(selectIsAuth);
   const user = useSelector(selectUserInfo);
   const isError = useSelector(selectIsError);
-  const isFavorite = useSelector(selectIsFavorites);
   const favoritesCount = useSelector(selectFavoritesCount);
   const dispatch = useDispatch<AppDispatchType>();
 
@@ -54,13 +53,13 @@ function Header() {
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
                         <span className="header__user-name user__name">{user?.email}</span>
-                        {isFavorite && <span className="header__favorite-count">{favoritesCount}</span>}
+                        <span className="header__favorite-count">{favoritesCount}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">
-                      <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogout}>
+                      <a className="header__nav-link" onClick={handleLogout}>
                         <span className="header__signout">Sign out</span>
-                      </Link>
+                      </a>
                     </li>
                   </Fragment>
                 ) : (

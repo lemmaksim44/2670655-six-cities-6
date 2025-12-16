@@ -33,14 +33,14 @@ export const fetchReviewsByOfferId = createAsyncThunk<
 );
 
 export const sendReview = createAsyncThunk<
-  ReviewType[],
+  ReviewType,
   SendReviewType,
   { extra: AxiosInstance }
 >(
   'reviews/sendReview',
-  async ({ offerId, rating, comment }, { dispatch, extra: api }) => {
+  async ({ offerId, rating, comment }, { dispatch, extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.post<ReviewType[]>(
+      const { data } = await api.post<ReviewType>(
         `/comments/${offerId}`,
         { comment, rating },
         { headers: tokenService.getAuthHeaders() }
@@ -57,7 +57,7 @@ export const sendReview = createAsyncThunk<
         dispatch(setServerError('Не удалось отправить отзыв'));
       }
 
-      return [];
+      return rejectWithValue(null);
     }
   }
 );

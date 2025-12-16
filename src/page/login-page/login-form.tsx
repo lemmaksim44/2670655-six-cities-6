@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchLogin } from '../../store/user/action';
 import { setServerError } from '../../store/error/action';
-import { AppDispatchType, RootState } from '../../store';
+import { AppDispatchType } from '../../store';
+import { selectServerError } from '../../store/error/selectors';
 
 function LoginForm() {
   const dispatch = useDispatch<AppDispatchType>();
-  const serverError = useSelector((state: RootState) => state.error.serverError);
+  const serverError = useSelector(selectServerError);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

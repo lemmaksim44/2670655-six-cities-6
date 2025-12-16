@@ -59,7 +59,7 @@ export const fetchLogin = createAsyncThunk<void, LoginData, { extra: AxiosInstan
     try {
       const { data, status } = await api.post<UserAuthType>('/login', { email, password });
 
-      if (status === 201) {
+      if (status === 200 || status === 201) {
         dispatch(setServerError(null));
         tokenService.set(data.token);
         dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
