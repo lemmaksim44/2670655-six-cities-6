@@ -55,9 +55,9 @@ const mockOffer: OfferPreviewType = {
   previewImage: 'img.jpg',
   city: {
     name: 'Paris',
-    location: { latitude: 0, longitude: 0, zoom: 10 },
+    location: { latitude: 10, longitude: 10, zoom: 10 },
   },
-  location: { latitude: 0, longitude: 0, zoom: 10 },
+  location: { latitude: 10, longitude: 10, zoom: 10 },
 };
 
 describe('FavoritesPageCard', () => {
