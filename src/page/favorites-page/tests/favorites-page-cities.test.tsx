@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import FavoritesPageCities from '../favorites-page-cities';
 import { setCity } from '../../../store/offers/action';
+import { OfferPreviewType } from '../../../types/offer-preview';
 
 vi.mock('react-redux', async () => {
   const actual = await vi.importActual<typeof import('react-redux')>('react-redux');
@@ -30,10 +31,39 @@ vi.mock('../../../store/offers/action', () => ({
 
 const mockDispatch = vi.fn();
 
-const mockOffers = [
-  { id: 'offer-1' },
-  { id: 'offer-2' },
-] as any[];
+const mockOffers: OfferPreviewType[] = [
+  {
+    id: 'offer-1',
+    title: 'Test offer',
+    type: 'apartment',
+    price: 100,
+    rating: 4,
+    isFavorite: false,
+    isPremium: true,
+    previewImage: 'img.jpg',
+    city: {
+      name: 'Paris',
+      location: { latitude: 0, longitude: 0, zoom: 10 },
+    },
+    location: { latitude: 0, longitude: 0, zoom: 10 },
+  },
+  {
+    id: 'offer-2',
+    title: 'Test offer',
+    type: 'apartment',
+    price: 200,
+    rating: 3,
+    isFavorite: false,
+    isPremium: true,
+    previewImage: 'img.jpg',
+    city: {
+      name: 'Paris',
+      location: { latitude: 0, longitude: 0, zoom: 10 },
+    },
+    location: { latitude: 0, longitude: 0, zoom: 10 },
+  }
+];
+
 
 const mockCity = 'Paris';
 

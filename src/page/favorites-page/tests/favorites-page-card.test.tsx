@@ -28,13 +28,13 @@ vi.mock('react-router-dom', async () => {
 
   return {
     ...actual,
-    Link: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+    Link: ({ children }: { children: React.ReactNode }) => children,
     useNavigate: () => mockNavigate,
   };
 });
 
 vi.mock('../../../store/favorite/action', () => ({
-  changeFavoriteStatus: vi.fn((payload) => ({
+  changeFavoriteStatus: vi.fn((payload: { offerId: string; status: number }) => ({
     type: 'favorite/changeStatus',
     payload,
   })),
