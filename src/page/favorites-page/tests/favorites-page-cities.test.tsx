@@ -64,7 +64,6 @@ const mockOffers: OfferPreviewType[] = [
   }
 ];
 
-
 const mockCity = 'Paris';
 
 describe('FavoritesPageCities', () => {
